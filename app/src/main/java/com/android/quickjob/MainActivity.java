@@ -35,7 +35,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Type casting and telling which identifier belongs to which which field
         userEmail = (EditText)findViewById(R.id.emailText);
+       // userEmail.setGravity(1);
         userPassword = (EditText)findViewById(R.id.passwordText);
+       // userPassword.setGravity(1);
         registerUser = (Button)findViewById(R.id.userLogin);
         userSignIn = (TextView)findViewById(R.id.signupActivityLink);
 
