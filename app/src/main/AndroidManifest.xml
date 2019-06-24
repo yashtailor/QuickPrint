@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserProfile" android:label="USER PROFILE"
+        <activity
+            android:name=".UserProfile"
+            android:label="USER PROFILE"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="com.android.userprofile" />
@@ -19,14 +21,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login" android:label="LOGIN">
+        <activity
+            android:name=".Login"
+            android:label="LOGIN">
             <intent-filter>
                 <action android:name="com.android.login" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:label="SIGN UP">
+        <activity
+            android:name=".MainActivity"
+            android:label="SIGN UP">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
