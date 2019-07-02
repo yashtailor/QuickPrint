@@ -29,6 +29,7 @@ public class PreviousOrders extends AppCompatActivity implements NavigationView.
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        navigationView.bringToFront();
     }
 
     @Override

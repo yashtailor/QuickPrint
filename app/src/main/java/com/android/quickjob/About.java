@@ -29,6 +29,7 @@ public class About extends AppCompatActivity implements NavigationView.OnNavigat
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        navigationView.bringToFront();
     }
 
     @Override

@@ -29,6 +29,7 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        navigationView.bringToFront();
     }
 
     @Override
