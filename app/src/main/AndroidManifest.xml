@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< Updated upstream
 
         <activity
             android:name=".VendorList"
@@ -23,6 +24,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+=======
+>>>>>>> Stashed changes
         <activity android:name=".VendorSignIn"></activity>
         <activity
             android:name=".Vendor"
@@ -31,6 +34,7 @@
             <intent-filter>
                 <action android:name="com.android.vendor" />
 
+<<<<<<< Updated upstream
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -43,6 +47,12 @@
             android:theme="@style/AppTheme.NoActionBar">
 
 
+=======
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".PreviousOrders">
+>>>>>>> Stashed changes
             <intent-filter>
                 <action android:name="com.android.previousorders" />
 
