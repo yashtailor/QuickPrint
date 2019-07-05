@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-public class vendorList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class VendorList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
 

@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_userprfile"
-            android:icon="@drawable/ic_verified_user"
+            android:icon="@drawable/ic_user_profile"
             android:title="User Profile" />
         <item
             android:id="@+id/nav_editdetails"

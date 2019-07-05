@@ -10,8 +10,6 @@
     tools:context=".UserProfile">
 
 
-
-
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
@@ -24,7 +22,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <include layout="@layout/toolbar" />
+
+        <include layout="@layout/toolbar" />
     </LinearLayout>
 
     <RelativeLayout
@@ -88,27 +87,12 @@
             android:layout_marginBottom="48dp"
             android:layout_toRightOf="@+id/buttonAdd"
             android:background="@drawable/special_half_button"
-<<<<<<< Updated upstream
+
             android:text="CAM SCANNER"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/vendorBtn"
-            android:layout_width="64dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:drawableLeft="@drawable/ic_vendor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
-=======
-            android:text="CAM SCANNER" />
     </RelativeLayout>
->>>>>>> Stashed changes
-
 
 
 </android.support.v4.widget.DrawerLayout>
