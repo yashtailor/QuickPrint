@@ -13,16 +13,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         <activity
             android:name=".vendorList"
             android:label="VENDOR LIST"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="com.android.vendorlist" />
+=======
+        <activity android:name=".VendorSignIn"></activity>
+        <activity
+            android:name=".Vendor"
+            android:label="Vendor"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.android.vendor" />
+>>>>>>> Stashed changes
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+<<<<<<< Updated upstream
         <activity
             android:name=".PreviousOrders"
 =======
@@ -30,6 +41,9 @@
 >>>>>>> Stashed changes
             android:label="PREVIOUS ORDERS"
             android:theme="@style/AppTheme.NoActionBar">
+=======
+        <activity android:name=".PreviousOrders">
+>>>>>>> Stashed changes
             <intent-filter>
                 <action android:name="com.android.previousorders" />
 

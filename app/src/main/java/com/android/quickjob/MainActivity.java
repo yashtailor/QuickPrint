@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Declaring variables
     private EditText userEmail, userPassword;
     private Button registerUser;
-    private TextView userSignIn;
+    private TextView userSignIn,vendorSignIn;
     private FirebaseAuth firebaseAuth;
 
     //Since it has internet access, showing progress bar
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // userPassword.setGravity(1);
         registerUser = (Button) findViewById(R.id.userLogin);
         userSignIn = (TextView) findViewById(R.id.signupActivityLink);
+        vendorSignIn= (TextView) findViewById(R.id.vendor_signup);
 
         progressDialog = new ProgressDialog(this);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Attaching on click Listener for registering and logging in
         registerUser.setOnClickListener(this);
         userSignIn.setOnClickListener(this);
+        vendorSignIn.setOnClickListener(this);
     }
 
     @Override //An over-ridden method from interface View.OnClickListener
@@ -62,6 +64,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v == userSignIn) {
             //Start the activity for login
             Intent intent = new Intent("com.android.login");
+            startActivity(intent);
+        }
+        if (v == vendorSignIn) {
+            //VEndot activity login
+            Intent intent = new Intent(getApplicationContext(),VendorSignIn.class);
             startActivity(intent);
         }
     }
