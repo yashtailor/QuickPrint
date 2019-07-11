@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Login extends AppCompatActivity implements View.OnClickListener{
     EditText alreadyRegisteredUserEmail,alreadyRegisteredUserPassword;
     Button login;
-    TextView toGoToSignUpPage;
+    TextView toGoToSignUpPage,toGoToVendorLoginPage;
     ProgressDialog progressDialog;
     FirebaseAuth firebaseAuth ;
     @Override
@@ -32,12 +32,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         alreadyRegisteredUserPassword = (EditText)findViewById(R.id.passwordText);
         login = (Button)findViewById(R.id.userLogin);
         toGoToSignUpPage = (TextView)findViewById(R.id.signupActivityLink);
+        toGoToVendorLoginPage=(TextView)findViewById(R.id.vendor_login);
         progressDialog = new ProgressDialog(this);
         firebaseAuth = FirebaseAuth.getInstance();
         toGoToSignUpPage.setOnClickListener(this);
         login.setOnClickListener(this);
-
-
+        toGoToVendorLoginPage.setOnClickListener(this);
     }
 
     @Override
@@ -47,6 +47,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         }
         if(v==toGoToSignUpPage){
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        }
+        if(v==toGoToVendorLoginPage) {
+            startActivity(new Intent(getApplicationContext(),VendorLogin.class));
         }
     }
     public void login(){

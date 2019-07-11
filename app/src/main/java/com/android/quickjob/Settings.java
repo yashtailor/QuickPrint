@@ -57,7 +57,7 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
         } else if (menuItem.getItemId() == R.id.nav_settings) {
             onBackPressed();
         } else if (menuItem.getItemId() == R.id.nav_about) {
-            startActivity(new Intent(getApplicationContext(), About.class));
+            startActivity(new Intent(getApplicationContext(), DeveloperOptions.class));
             finish();
         }
         return true;

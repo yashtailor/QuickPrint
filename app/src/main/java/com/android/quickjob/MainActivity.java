@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (v == vendorSignIn) {
             //VEndot activity login
-            Intent intent = new Intent(getApplicationContext(),VendorSignIn.class);
+            Intent intent = new Intent(getApplicationContext(),VendorAddition.class);
             startActivity(intent);
         }
     }

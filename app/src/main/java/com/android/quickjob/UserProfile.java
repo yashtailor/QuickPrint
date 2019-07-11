@@ -77,7 +77,7 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
             startActivity(new Intent(getApplicationContext(), Settings.class));
             finish();
         } else if (menuItem.getItemId() == R.id.nav_about) {
-            startActivity(new Intent(getApplicationContext(), About.class));
+            startActivity(new Intent(getApplicationContext(), DeveloperOptions.class));
             finish();
         }
         return true;

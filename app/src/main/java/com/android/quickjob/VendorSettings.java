@@ -1,24 +1,24 @@
 package com.android.quickjob;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-public class Vendor extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class VendorSettings extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vendor);
+        setContentView(R.layout.activity_vendor_settings);
         drawer = findViewById(R.id.draw_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -34,23 +34,19 @@ public class Vendor extends AppCompatActivity implements NavigationView.OnNaviga
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-        if (menuItem.getItemId() == R.id.nav_userprfile) {
-            startActivity(new Intent(getApplicationContext(), UserProfile.class));
+        if (menuItem.getItemId() == R.id.nav_vendorprofile) {
+            startActivity(new Intent(getApplicationContext(), VendorProfile.class));
             finish();
-        } else if (menuItem.getItemId() == R.id.nav_editdetails) {
-            startActivity(new Intent(getApplicationContext(), EditDetails.class));
+        } else if (menuItem.getItemId() == R.id.nav_editdetails_vendor) {
+            startActivity(new Intent(getApplicationContext(), VendorEditDetails.class));
             finish();
-        } else if (menuItem.getItemId() == R.id.nav_previousorders) {
+        } else if (menuItem.getItemId() == R.id.nav_previousorders_vendor) {
+            startActivity(new Intent(getApplicationContext(), VendorPreviousOrders.class));
+            finish();
+        } else if (menuItem.getItemId() == R.id.nav_settings_vendor) {
             onBackPressed();
-        } else if (menuItem.getItemId() == R.id.nav_settings) {
-            startActivity(new Intent(getApplicationContext(), Settings.class));
-            finish();
-        } else if (menuItem.getItemId() == R.id.nav_about) {
-            startActivity(new Intent(getApplicationContext(), About.class));
-            finish();
         }
         return true;
-
     }
 
     @Override

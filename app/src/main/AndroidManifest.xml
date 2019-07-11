@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,8 +11,64 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< Updated upstream
+        <activity
+            android:name=".VendorSettings"
+            android:label="SETTINGS"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.android.vendorsettings" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".VendorPreviousOrders"
+            android:label="PREVIOUS ORDERS"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.android.vendorpreviousorder" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".VendorEditDetails"
+            android:label="EDIT DETAILS"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.android.vendoreditdetails" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".VendorLogin"
+            android:label="VENDOR LOGIN">
+            <intent-filter>
+                <action android:name="com.android.vendorlogin" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".DeveloperOptions"
+            android:label="DEVELOPER OPTIONS"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.android.developeroptions" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".VendorAddition"
+            android:label="VENDOR ADDITION">
+            <intent-filter>
+                <action android:name="com.android.vendoraddition" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".VendorList"
             android:label="VENDOR LIST"
@@ -24,43 +79,26 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-=======
->>>>>>> Stashed changes
-        <activity android:name=".VendorSignIn"></activity>
         <activity
-            android:name=".Vendor"
-            android:label="Vendor"
+            android:name=".VendorProfile"
+            android:label="Vendor Profile"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="com.android.vendor" />
-
-<<<<<<< Updated upstream
+                <action android:name="com.android.vendorprofile" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".PreviousOrders"
-
             android:label="PREVIOUS ORDERS"
             android:theme="@style/AppTheme.NoActionBar">
-
-
-=======
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".PreviousOrders">
->>>>>>> Stashed changes
             <intent-filter>
-                <action android:name="com.android.previousorders" />
+                <action android:name="com.android.perviousorder" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".Settings"
             android:label="SETTINGS"
@@ -71,19 +109,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".About"
-
-            android:label="ABOUT"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="com.android.about" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
         <activity
             android:name=".EditDetails"
             android:label="EDIT DETAILS"
@@ -103,6 +128,7 @@
                 <action android:name="com.android.userprofile" />
 
                 <data android:mimeType="*/*" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

@@ -1,5 +1,6 @@
 package com.android.quickjob;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,25 +8,31 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
-public class VendorList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class DeveloperOptions extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DrawerLayout drawer;
+    static ArrayList<VendorAddVerify> mVendorList=new ArrayList<>();
+    private VendorVerificationAdapter mAdapter;
     private RecyclerView mRecyclerView;
-    private VendorListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private DatabaseReference databaseVendors;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vendor_list);
+        setContentView(R.layout.activity_developer_options);
         drawer = findViewById(R.id.draw_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -36,13 +43,8 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.bringToFront();
-
-        ArrayList<VendorData> data=new ArrayList<>();
-        for(int i=0;i<20;i++) {
-            data.add(new VendorData("Name",i+1,i+2));
-        }
-
-        buildRecyclerView(data);
+        databaseVendors= FirebaseDatabase.getInstance().getReference("Vendors");
+        buildRecyclerView();
     }
 
     @Override
@@ -52,7 +54,8 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
             startActivity(new Intent(getApplicationContext(), UserProfile.class));
             finish();
         } else if (menuItem.getItemId() == R.id.nav_editdetails) {
-            onBackPressed();
+            startActivity(new Intent(getApplicationContext(), EditDetails.class));
+            finish();
         } else if (menuItem.getItemId() == R.id.nav_previousorders) {
             startActivity(new Intent(getApplicationContext(), PreviousOrders.class));
             finish();
@@ -60,8 +63,7 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
             startActivity(new Intent(getApplicationContext(), Settings.class));
             finish();
         } else if (menuItem.getItemId() == R.id.nav_about) {
-            startActivity(new Intent(getApplicationContext(), DeveloperOptions.class));
-            finish();
+           onBackPressed();
         }
         return true;
 
@@ -75,20 +77,40 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
             super.onBackPressed();
         }
     }
-    public void buildRecyclerView(final ArrayList<VendorData> data) {
-        mRecyclerView=findViewById(R.id.recyclerView);
+    public void buildRecyclerView() {
+        mRecyclerView = findViewById(R.id.recyclerViewVerification);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager=new LinearLayoutManager(this);
-        mAdapter=new VendorListAdapter(data);
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new VendorVerificationAdapter(mVendorList);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-        mAdapter.setOnClickListener(new VendorListAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new VendorVerificationAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
-                Intent intent=new Intent(getApplicationContext(),VendorProfile.class);
-                startActivity(intent);
+            public void onAddClick(final int position) {
+                AlertDialog.Builder a_builder = new AlertDialog.Builder(DeveloperOptions.this);
+                a_builder.setMessage("Do you want to add this vendor")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String id=databaseVendors.push().getKey();
+                                databaseVendors.child(id).setValue(mVendorList.get(position));
+                                mVendorList.remove(position);
+                                mAdapter.notifyItemRemoved(position);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                                mVendorList.remove(position);
+                                mAdapter.notifyItemRemoved(position);
+                            }
+                        });
+                AlertDialog alert = a_builder.create();
+                alert.show();
             }
         });
     }
