@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< Updated upstream
+        <activity android:name=".payments"></activity>
         <activity
             android:name=".vendorList"
             android:label="VENDOR LIST"
@@ -25,9 +24,6 @@
         </activity>
         <activity
             android:name=".PreviousOrders"
-=======
-        <activity android:name=".PreviousOrders"
->>>>>>> Stashed changes
             android:label="PREVIOUS ORDERS"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -36,12 +32,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-<<<<<<< Updated upstream
         <activity
             android:name=".Settings"
-=======
-        <activity android:name=".Settings"
->>>>>>> Stashed changes
             android:label="SETTINGS"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -50,12 +42,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-<<<<<<< Updated upstream
         <activity
             android:name=".About"
-=======
-        <activity android:name=".About"
->>>>>>> Stashed changes
             android:label="ABOUT"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -64,12 +52,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-<<<<<<< Updated upstream
         <activity
             android:name=".EditDetails"
-=======
-        <activity android:name=".EditDetails"
->>>>>>> Stashed changes
             android:label="EDIT DETAILS"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -84,8 +68,21 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
-                <action android:name="com.android.userprofile"/>
-                <data android:mimeType="*/*"/>
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.android.userprofile" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

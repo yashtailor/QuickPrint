@@ -26,6 +26,14 @@
         android:layout_height="wrap_content">
     <include layout="@layout/toolbar" />
     </LinearLayout>
+    
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerViewItems"
+        android:paddingTop="?attr/actionBarSize"
+        android:paddingBottom="300dp"
+        android:scrollbars="vertical"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -33,8 +41,8 @@
 
         <Button
             android:id="@+id/buttonAdd"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="@drawable/special_half_button"
@@ -43,8 +51,8 @@
 
         <Button
             android:id="@+id/btnGallery"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
@@ -53,24 +61,20 @@
 
         <Button
             android:id="@+id/btnFileManger"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="20dp"
+            android:layout_alignParentRight="true"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginBottom="26dp"
-            android:layout_toEndOf="@+id/buttonAdd"
-            android:layout_toRightOf="@+id/buttonAdd"
             android:background="@drawable/special_half_button"
             android:text="FILE MANAGER" />
 
         <Button
             android:id="@+id/btnCamera"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_above="@+id/btnGallery"
             android:layout_centerInParent="true"
             android:layout_marginRight="-24dp"
@@ -81,33 +85,19 @@
 
         <Button
             android:id="@+id/btnCamScanner"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_above="@+id/btnFileManger"
             android:layout_marginLeft="-41dp"
             android:layout_marginBottom="48dp"
             android:layout_toRightOf="@+id/buttonAdd"
             android:background="@drawable/special_half_button"
-<<<<<<< Updated upstream
             android:text="CAM SCANNER"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/vendorBtn"
-            android:layout_width="64dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:drawableLeft="@drawable/ic_vendor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
-=======
-            android:text="CAM SCANNER" />
+        
+        
     </RelativeLayout>
->>>>>>> Stashed changes
 
 
 

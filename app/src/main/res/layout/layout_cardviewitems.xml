@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EBB55E">
+
+            <TextView
+                android:id="@+id/fileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="FILE NAME"
+                android:textStyle="bold"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/filePages"
+                android:text="FILE PAGES"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_below="@+id/fileName"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fileCost"
+                android:textStyle="bold"
+                android:text="FILE COST"
+                android:textSize="20dp"
+                android:layout_below="@+id/filePages"/>
+
+            <RadioGroup
+                android:id="@+id/colorCombo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@+id/deleteItem"
+                android:layout_below="@+id/fileName">
+
+                <RadioButton
+                    android:id="@+id/blackAndWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="B/W"
+                    android:checked="true"
+                    />
+
+                <RadioButton
+                    android:id="@+id/color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Color"
+                    />
+            </RadioGroup>
+
+            <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="9dp"
+                android:background="@drawable/ic_delete"
+                android:layout_below="@+id/fileName"
+                android:id="@+id/deleteItem"/>
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
