@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@drawable/gradients_orange"
+    app:cardCornerRadius="5dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fileNamePreviousOrder"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="File Name:"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/VendorNamePreviousOrder"
+            android:layout_below="@+id/fileNamePreviousOrder"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Vendor Name:"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fileCostPreviousOrder"
+            android:layout_below="@+id/VendorNamePreviousOrder"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="File Cost:"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/finishTimePreviousOrder"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/fileCostPreviousOrder"
+            android:text="Time:"/>
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="9dp"
+            android:background="@drawable/ic_delete"
+            android:id="@+id/deleteItemPreviousOrder"/>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
