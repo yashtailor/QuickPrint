@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_userprfile"
+            android:id="@+id/nav_vendorprofile"
             android:icon="@drawable/ic_user_profile"
-            android:title="User Profile" />
+            android:title="Vendor Profile" />
         <item
-            android:id="@+id/nav_editdetails"
+            android:id="@+id/nav_editdetails_vendor"
             android:icon="@drawable/ic_editdetails"
             android:title="Edit Details" />
         <item
-            android:id="@+id/nav_previousorders"
+            android:id="@+id/nav_previousorders_vendor"
             android:icon="@drawable/ic_previousorders"
-            android:title="Previous Orders" />
+            android:title="Completed Orders" />
         <item
-            android:id="@+id/nav_settings"
+            android:id="@+id/nav_settings_vendor"
             android:icon="@drawable/ic_settings"
             android:title="Settings" />
-        <item
-            android:id="@+id/nav_about"
-            android:icon="@drawable/ic_about"
-            android:title="Developers" />
     </group>
 </menu>

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradients_orange"
     android:fitsSystemWindows="true"
-    tools:context=".VendorList">
+    tools:context=".VendorSettings">
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -16,7 +16,7 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/drawer_menu" />
+        app:menu="@menu/drawer_vendor" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -25,18 +25,5 @@
 
         <include layout="@layout/toolbar" />
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="?attr/actionBarSize">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="4dp"
-            android:scrollbars="vertical" />
-    </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>

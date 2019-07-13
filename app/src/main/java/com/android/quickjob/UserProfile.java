@@ -23,7 +23,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,10 +32,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-
 import static android.content.Intent.ACTION_GET_CONTENT;
 import static android.content.Intent.ACTION_PICK;
 import static android.content.Intent.createChooser;
@@ -60,7 +57,12 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
     FirebaseUser user;
     private ArrayList<FileItems> fileItems;
     private String path;
+    private String fileId;
     private String fileName;
+    private int requestCode;
+    private int resultCode;
+    @Nullable
+    private Intent data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +70,10 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
         setContentView(R.layout.activity_user_profile);
         setTheFields();
         setRecyclerView();
+        vendorList();
         Intent intent = getIntent();
         String action = intent.getAction();
         String type = intent.getType();
-        if (Intent.ACTION_SEND.equals(action) && type != null) {
-            putFileInStorage((Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM));
-        }
     }
 
     @Override
@@ -91,7 +91,7 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
             startActivity(new Intent(getApplicationContext(), Settings.class));
             finish();
         } else if (menuItem.getItemId() == R.id.nav_about) {
-            startActivity(new Intent(getApplicationContext(), About.class));
+            startActivity(new Intent(getApplicationContext(), DeveloperOptions.class));
             finish();
         }
         return true;
@@ -134,74 +134,6 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
     }
 
 
-    public void setTheFields() {
-        drawer = findViewById(R.id.draw_layout);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        btnAdd = (Button) findViewById(R.id.buttonAdd);
-        btnCamera = (Button) findViewById(R.id.btnCamera);
-        btnCamScanner = (Button) findViewById(R.id.btnCamScanner);
-        btnFileManager = (Button) findViewById(R.id.btnFileManger);
-        btnGallery = (Button) findViewById(R.id.btnGallery);
-        btnAdd.setOnClickListener(this);
-        btnGallery.setOnClickListener(this);
-        btnCamScanner.setOnClickListener(this);
-        btnCamera.setOnClickListener(this);
-        btnFileManager.setOnClickListener(this);
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        storageReference = FirebaseStorage.getInstance().getReference(user.getEmail());
-        databaseReference = FirebaseDatabase.getInstance().getReference("Files");
-        navigationView.bringToFront();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_FOR_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            uploadFiles(data);
-        } else if (requestCode == REQUEST_FOR_CAMERA_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            uploadImage(data);
-        } else if (requestCode == REQUEST_CODE_FILES && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            uploadFiles(data);
-        } else if (requestCode == REQUEST_CODE_SCANNER && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Toast.makeText(getApplicationContext(), "Added baki", Toast.LENGTH_LONG).show();
-            Intent file = data.getParcelableExtra(Intent.EXTRA_STREAM);
-            uploadFiles(file);
-        }
-    }
-
-    public void uploadImage(Intent data) {
-        final Uri cameraUri = data.getData();
-        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] array = baos.toByteArray();
-        path = databaseReference.push().getKey();
-        StorageReference upload = storageReference.child(path);
-        uploadTask = (UploadTask) upload.putBytes(array).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(UserProfile.this, "Added to cart", Toast.LENGTH_LONG).show();
-                String mimeType = getContentResolver().getType(file);
-                fileItems.add(new FileItems(mimeType, 1, 1, path));
-                adapter.notifyDataSetChanged();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UserProfile.this, e.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void uploadFiles(Intent data) {
@@ -217,26 +149,6 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
-    public void putFileInStorage(final Uri file) {
-        path = databaseReference.push().getKey();
-        StorageReference upload = storageReference.child(path);
-        //Toast.makeText(getApplicationContext(), "I entered", Toast.LENGTH_LONG).show();
-        uploadTask = (UploadTask) upload.putFile(file).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(UserProfile.this, "Added in cart", Toast.LENGTH_LONG).show();
-                String mimeType = getContentResolver().getType(file);
-                fileName = getFileName(file);
-                fileItems.add(new FileItems(fileName, 1, 1, path));
-                adapter.notifyDataSetChanged();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UserProfile.this, e.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
 
     public void setRecyclerView() {
         fileItems = new ArrayList<>();
@@ -274,9 +186,9 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
 
             @Override
             public void onRadioClick(int position, int index) {
-                if(index == 0)
-                     fileItems.get(position).setFileCost(1);
-                else if(index ==1)
+                if (index == 0)
+                    fileItems.get(position).setFileCost(1);
+                else if (index == 1)
                     fileItems.get(position).setFileCost(2);
 
                 adapter.notifyItemChanged(position);
@@ -284,6 +196,7 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public String getFileName(Uri uri) {
         String result = null;
         if (uri.getScheme().equals("content")) {
@@ -304,6 +217,109 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
             }
         }
         return result;
+
+    }
+
+    public void vendorList() {
+        btnAdd = (Button) findViewById(R.id.buttonAdd);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), VendorList.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+
+    public void setTheFields() {
+        drawer = findViewById(R.id.draw_layout);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        btnAdd = (Button) findViewById(R.id.buttonAdd);
+        btnCamera = (Button) findViewById(R.id.btnCamera);
+        btnCamScanner = (Button) findViewById(R.id.btnCamScanner);
+        btnFileManager = (Button) findViewById(R.id.btnFileManger);
+        btnGallery = (Button) findViewById(R.id.btnGallery);
+        //recyclerView = (RecyclerView) findViewById(R.id.recyclerViewItems);
+        btnAdd.setOnClickListener(this);
+        btnGallery.setOnClickListener(this);
+        btnCamScanner.setOnClickListener(this);
+        btnCamera.setOnClickListener(this);
+        btnFileManager.setOnClickListener(this);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        storageReference = FirebaseStorage.getInstance().getReference(user.getEmail());
+        databaseReference = FirebaseDatabase.getInstance().getReference("Files");
+        navigationView.bringToFront();
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_FOR_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            uploadFiles(data);
+        } else if (requestCode == REQUEST_FOR_CAMERA_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            uploadImage(data);
+        } else if (requestCode == REQUEST_CODE_FILES && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            uploadFiles(data);
+        } else if (requestCode == REQUEST_CODE_SCANNER && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Toast.makeText(getApplicationContext(), "Added baki", Toast.LENGTH_LONG).show();
+            Intent file = data.getParcelableExtra(Intent.EXTRA_STREAM);
+            uploadFiles(file);
+        }
+    }
+
+    public void uploadImage(Intent data) {
+        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] array = baos.toByteArray();
+        fileId = databaseReference.push().getKey();
+        StorageReference upload = storageReference.child(fileId);
+        uploadTask = (UploadTask) upload.putBytes(array).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                fileItems.add(new FileItems(getFileName(file),1,1,fileId));
+                adapter.notifyDataSetChanged();
+
+                Toast.makeText(UserProfile.this, "Added to cart", Toast.LENGTH_LONG).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(UserProfile.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
+    public void putFileInStorage(final Uri file) {
+        fileId = databaseReference.push().getKey();
+        StorageReference upload = storageReference.child(fileId);
+        uploadTask = (UploadTask) upload.putFile(file).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                fileItems.add(new FileItems(getFileName(file),1,1,fileId));
+                adapter.notifyDataSetChanged();
+                Toast.makeText(UserProfile.this, "Added in cart", Toast.LENGTH_LONG).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(UserProfile.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
 

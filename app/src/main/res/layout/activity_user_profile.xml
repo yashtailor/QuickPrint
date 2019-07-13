@@ -10,8 +10,6 @@
     tools:context=".UserProfile">
 
 
-
-
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
@@ -24,7 +22,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <include layout="@layout/toolbar" />
+
+        <include layout="@layout/toolbar" />
     </LinearLayout>
     
     <android.support.v7.widget.RecyclerView
@@ -98,7 +97,6 @@
         
         
     </RelativeLayout>
-
 
 
 </android.support.v4.widget.DrawerLayout>

@@ -8,6 +8,19 @@
     tools:context=".Login">
 
 
+    <TextView
+        android:id="@+id/vendor_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="552dp"
+        android:text="Vendor login"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/emailText"
         android:layout_width="342dp"

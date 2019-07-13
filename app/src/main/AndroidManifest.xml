@@ -12,8 +12,73 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".payments"></activity>
+        <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".vendorList"
+            android:name=".VendorSettings"
+            android:label="SETTINGS"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.android.vendorsettings" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".VendorPreviousOrders"
+            android:label="PREVIOUS ORDERS"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.android.vendorpreviousorder" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".VendorEditDetails"
+            android:label="EDIT DETAILS"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.android.vendoreditdetails" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".VendorLogin"
+            android:label="VENDOR LOGIN">
+            <intent-filter>
+                <action android:name="com.android.vendorlogin" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".DeveloperOptions"
+            android:label="DEVELOPER OPTIONS"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.android.developeroptions" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".VendorAddition"
+            android:label="VENDOR ADDITION">
+            <intent-filter>
+                <action android:name="com.android.vendoraddition" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".VendorList"
             android:label="VENDOR LIST"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,11 +88,22 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".VendorProfile"
+            android:label="Vendor Profile"
+
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.android.vendorprofile" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".PreviousOrders"
             android:label="PREVIOUS ORDERS"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="com.android.previousorders" />
+                <action android:name="com.android.perviousorder" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -38,16 +114,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="com.android.settings" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".About"
-            android:label="ABOUT"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="com.android.about" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -83,6 +149,10 @@
             <intent-filter>
                 <action android:name="com.android.userprofile" />
 
+                <action android:name="com.android.userprofile" />
+
+                <data android:mimeType="*/*" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -101,7 +171,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>

@@ -2,9 +2,9 @@ package com.android.quickjob;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -17,17 +17,21 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     //Declaring variables
     private EditText userEmail, userPassword;
     private Button registerUser;
-    private TextView userSignIn;
+    private TextView userSignIn,vendorSignIn;
     private FirebaseAuth firebaseAuth;
 
     //Since it has internet access, showing progress bar
     private ProgressDialog progressDialog;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +45,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // userPassword.setGravity(1);
         registerUser = (Button) findViewById(R.id.userLogin);
         userSignIn = (TextView) findViewById(R.id.signupActivityLink);
+        vendorSignIn= (TextView) findViewById(R.id.vendor_signup);
 
         progressDialog = new ProgressDialog(this);
         firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference= FirebaseDatabase.getInstance().getReference("Users");
 
-        if (firebaseAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), UserProfile.class));
-        }
         //Attaching on click Listener for registering and logging in
         registerUser.setOnClickListener(this);
         userSignIn.setOnClickListener(this);
+        vendorSignIn.setOnClickListener(this);
     }
 
     @Override //An over-ridden method from interface View.OnClickListener
@@ -64,10 +68,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent("com.android.login");
             startActivity(intent);
         }
+        if (v == vendorSignIn) {
+            //VEndot activity login
+            Intent intent = new Intent(getApplicationContext(),VendorAddition.class);
+            startActivity(intent);
+        }
     }
 
     public void registerUser() {
-        String email, password;
+        final String email, password;
         email = userEmail.getText().toString().trim();
         password = userPassword.getText().toString().trim();
 
@@ -108,6 +117,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     //Open the activity of content
+                    UserDatabase userDatabase = new UserDatabase(email,password);
+                    FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+                    String uid = user.getUid();
+                    databaseReference.child(uid).setValue(userDatabase);
                     Toast.makeText(MainActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                     finish();
