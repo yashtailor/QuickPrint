@@ -55,7 +55,7 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
     Uri file;
     UploadTask uploadTask;
     FirebaseUser user;
-    private ArrayList<FileItems> fileItems;
+    private static ArrayList<FileItems> fileItems;
     private String path;
     private String fileId;
     private String fileName;

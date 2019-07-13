@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    public ArrayList<FileItems> fileList;
+    public static  ArrayList<FileItems> fileList;
     Context context;
     private OnItemClickListener mListener;
     Uri fileUri;
