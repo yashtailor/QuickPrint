@@ -14,7 +14,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,7 +33,7 @@ public class DeveloperOptions extends AppCompatActivity implements NavigationVie
     private VendorVerificationAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private DatabaseReference databaseVendors;
+    private FirebaseAuth mAuth;
     private DrawerLayout drawer;
 
     @Override
@@ -43,7 +50,7 @@ public class DeveloperOptions extends AppCompatActivity implements NavigationVie
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.bringToFront();
-        databaseVendors= FirebaseDatabase.getInstance().getReference("Vendors");
+        mAuth=FirebaseAuth.getInstance();
         buildRecyclerView();
     }
 
@@ -95,10 +102,27 @@ public class DeveloperOptions extends AppCompatActivity implements NavigationVie
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                String id=databaseVendors.push().getKey();
-                                databaseVendors.child(id).setValue(mVendorList.get(position));
-                                mVendorList.remove(position);
-                                mAdapter.notifyItemRemoved(position);
+                                mAuth.createUserWithEmailAndPassword(mVendorList.get(position).getEmail(),mVendorList.get(position).getVendorNumber())
+                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if(task.isSuccessful()) {
+                                                    DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("Vendors");
+                                                    FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+                                                    String uid=user.getUid();
+                                                    databaseReference.child(uid).setValue(mVendorList.get(position));
+                                                    Toast.makeText(DeveloperOptions.this,"Added successfully",Toast.LENGTH_LONG).show();
+                                                    VendorList.data.add(new VendorData(mVendorList.get(position).getVendorName(),position,position+1));
+                                                    mVendorList.remove(position);
+                                                    mAdapter.notifyItemRemoved(position);
+                                                }
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(DeveloperOptions.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {

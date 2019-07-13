@@ -25,6 +25,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class EditDetails extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -33,6 +35,7 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
     private TextView forgot_password;
     private Button edit_btn;
     private FirebaseUser user;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,16 +95,16 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
         edit_btn = (Button) findViewById(R.id.button);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-
+        databaseReference= FirebaseDatabase.getInstance().getReference("Users");
 
         edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final StringBuilder sb = new StringBuilder();
+                //final StringBuilder sb = new StringBuilder();
                 Log.e("email empty",""+TextUtils.isEmpty(newemail.getText().toString()));
-                System.out.println(sb);
+                //System.out.println(sb);
                 if (!TextUtils.isEmpty(newemail.getText().toString())) {
-                    String email = newemail.getText().toString().trim();
+                    final String email = newemail.getText().toString().trim();
                     Log.e("Valid Email: ",""+isEmailValid(email));
                     if (!isEmailValid(email)) {
                         newemail.getText().clear();
@@ -116,6 +119,7 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
                                         newemail.getText().clear();
                                     }
                                 });
+                        databaseReference.child(user.getUid()).child("userEmail").setValue(email);
                     }
                 }
                 System.out.println(TextUtils.isEmpty(oldpassword.getText().toString()));
@@ -127,7 +131,7 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        String password2, password3;
+                                        final String password2, password3;
                                         password2 = newpassword.getText().toString().trim();
                                         password3 = newpassword2.getText().toString().trim();
                                         System.out.println(TextUtils.isEmpty(newpassword.getText().toString()));
@@ -141,9 +145,10 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
                                                                 oldpassword.getText().clear();
                                                                 newpassword.getText().clear();
                                                                 newpassword2.getText().clear();
-                                                                sb.append("Password updated\n");
+                                                                //sb.append("Password updated\n");
                                                             }
                                                         });
+                                                databaseReference.child(user.getUid()).child("userPassword").setValue(password2);
                                             } else {
                                                 Toast.makeText(EditDetails.this, "Both passwords input do not match", Toast.LENGTH_LONG).show();
                                                 oldpassword.getText().clear();

@@ -2,6 +2,7 @@ package com.android.quickjob;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -85,6 +86,11 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences sharedPreferences=getSharedPreferences("login",MODE_PRIVATE);
+                                SharedPreferences.Editor editor=sharedPreferences.edit();
+                                editor.putBoolean("flag1",false);
+                                editor.putBoolean("flag2",false);
+                                editor.apply();
                                 mAuth.signOut();
                                 Intent intent=new Intent(getApplicationContext(),Login.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

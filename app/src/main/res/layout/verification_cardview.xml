@@ -17,14 +17,27 @@
             android:text="Line 1"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginRight="35dp"/>
 
         <TextView
             android:id="@+id/verificationNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/verificationName"
-            android:text="Line @"
+            android:text="Line 2"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginRight="35dp" />
+
+        <TextView
+            android:id="@+id/verificationEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/verificationNumber"
+            android:text="Line 3"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="35dp"
             android:layout_marginRight="35dp" />

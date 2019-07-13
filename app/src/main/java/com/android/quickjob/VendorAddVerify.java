@@ -4,20 +4,30 @@ public class VendorAddVerify {
 
     private String name;
     private String number;
+    private String email;
 
-    public void setmText1(String mText1) {
-        name= mText1;
+    public VendorAddVerify() {
     }
 
-    public void setmText2(String mText2) {
-        number= mText2;
+
+
+    public String getEmail() {
+        return email;
     }
 
-    public String getmText1() {
+    public VendorAddVerify(String name, String number, String email) {
+        this.name = name;
+        this.number = number;
+        this.email = email;
+    }
+
+
+    public String getVendorName() {
         return name;
     }
 
-    public String getmText2() {
+    public String getVendorNumber() {
         return number;
     }
+
 }

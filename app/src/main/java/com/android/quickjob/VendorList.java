@@ -21,6 +21,7 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
     private RecyclerView mRecyclerView;
     private VendorListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    static ArrayList<VendorData> data=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +37,6 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.bringToFront();
-
-        ArrayList<VendorData> data=new ArrayList<>();
-        for(int i=0;i<20;i++) {
-            data.add(new VendorData("Name",i+1,i+2));
-        }
 
         buildRecyclerView(data);
     }

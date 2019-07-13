@@ -26,12 +26,14 @@ public class VendorVerificationAdapter extends RecyclerView.Adapter<VendorVerifi
         public ImageView mImageView;
         public TextView mTextView1;
         public TextView mTextView2;
+        public TextView mTextView3;
 
         public VendorVerificationHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.image_add);
             mTextView1 = itemView.findViewById(R.id.verificationName);
             mTextView2 = itemView.findViewById(R.id.verificationNumber);
+            mTextView3 = itemView.findViewById(R.id.verificationEmail);
 
             mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -62,8 +64,9 @@ public class VendorVerificationAdapter extends RecyclerView.Adapter<VendorVerifi
     @Override
     public void onBindViewHolder(@NonNull VendorVerificationHolder vendorVerificationHolder, int i) {
         VendorAddVerify currentVendor = mVendorList.get(i);
-        vendorVerificationHolder.mTextView1.setText("Name "+currentVendor.getmText1());
-        vendorVerificationHolder.mTextView2.setText("Number "+currentVendor.getmText2());
+        vendorVerificationHolder.mTextView1.setText("Name " + currentVendor.getVendorName());
+        vendorVerificationHolder.mTextView2.setText("Number " + currentVendor.getVendorNumber());
+        vendorVerificationHolder.mTextView3.setText("Email "+currentVendor.getEmail());
     }
 
     @Override
