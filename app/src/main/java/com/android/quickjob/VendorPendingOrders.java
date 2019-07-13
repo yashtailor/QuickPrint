@@ -1,13 +1,13 @@
 package com.android.quickjob;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,19 +15,19 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
-public class VendorProfile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class VendorPendingOrders extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
-    private RecyclerView vRecyclerView;
-    private RecyclerView.Adapter vAdapter;
-    private RecyclerView.LayoutManager vLayoutManager;
+    private RecyclerView vPendingRecyclerView;
+    private RecyclerView.Adapter vPendingAdapter;
+    private RecyclerView.LayoutManager vPendingLayoutManager;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vendor_profile);
+        setContentView(R.layout.activity_vendor_pending_orders);
         drawer = findViewById(R.id.draw_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -39,13 +39,13 @@ public class VendorProfile extends AppCompatActivity implements NavigationView.O
         toggle.syncState();
         navigationView.bringToFront();
 
-        ArrayList<OrderData> aod = new ArrayList<>();
-        vRecyclerView = (RecyclerView) findViewById(R.id.vendorRecyclerView);
-        vRecyclerView.setHasFixedSize(true);
-        vLayoutManager = new LinearLayoutManager(this);
-        vAdapter = new VendorOrderAdapter(aod);
-        vRecyclerView.setLayoutManager(vLayoutManager);
-        vRecyclerView.setAdapter(vAdapter);
+        ArrayList<OrderData> aod1 = new ArrayList<>();
+        vPendingRecyclerView = (RecyclerView) findViewById(R.id.vendorRecyclerView);
+        vPendingRecyclerView.setHasFixedSize(true);
+        vPendingLayoutManager = new LinearLayoutManager(this);
+        vPendingAdapter = new VendorOrderAdapter(aod1);
+        vPendingRecyclerView.setLayoutManager(vPendingLayoutManager);
+        vPendingRecyclerView.setAdapter(vPendingAdapter);
 
     }
 
@@ -75,6 +75,5 @@ public class VendorProfile extends AppCompatActivity implements NavigationView.O
             super.onBackPressed();
         }
     }
-
 
 }
