@@ -19,13 +19,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-<<<<<<< Updated upstream
-        maven {
-=======
-        maven{
->>>>>>> Stashed changes
-            url "https://maven.google.com"
-        }
     }
 }
 

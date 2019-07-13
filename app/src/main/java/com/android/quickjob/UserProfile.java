@@ -242,7 +242,7 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
+        navigationView.bringToFront();
         btnAdd = (Button) findViewById(R.id.buttonAdd);
         btnCamera = (Button) findViewById(R.id.btnCamera);
         btnCamScanner = (Button) findViewById(R.id.btnCamScanner);
@@ -257,7 +257,6 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
         user = FirebaseAuth.getInstance().getCurrentUser();
         storageReference = FirebaseStorage.getInstance().getReference(user.getEmail());
         databaseReference = FirebaseDatabase.getInstance().getReference("Files");
-        navigationView.bringToFront();
     }
 
 
