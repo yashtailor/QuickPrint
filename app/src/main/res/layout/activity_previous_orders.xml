@@ -26,4 +26,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/drawer_menu" />
 
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recyclerViewPreviousOrders">
+
+    </android.support.v7.widget.RecyclerView>
+
 </android.support.v4.widget.DrawerLayout>
