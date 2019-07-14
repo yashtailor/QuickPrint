@@ -112,7 +112,6 @@ public class DeveloperOptions extends AppCompatActivity implements NavigationVie
                                                     String uid=user.getUid();
                                                     databaseReference.child(uid).setValue(mVendorList.get(position));
                                                     Toast.makeText(DeveloperOptions.this,"Added successfully",Toast.LENGTH_LONG).show();
-                                                    VendorList.data.add(new VendorData(mVendorList.get(position).getVendorName(),position,position+1));
                                                     mVendorList.remove(position);
                                                     mAdapter.notifyItemRemoved(position);
                                                 }

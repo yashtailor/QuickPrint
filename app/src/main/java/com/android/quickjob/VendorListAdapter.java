@@ -54,7 +54,7 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.Ve
     @NonNull
     @Override
     public VendorListHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.vendor_name_list, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.vendor_namelist_cardview, viewGroup, false);
         VendorListHolder vlh = new VendorListHolder(v, mListener);
         return vlh;
     }
@@ -64,7 +64,7 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.Ve
         VendorData currentVendor = mVendorData.get(i);
 
         vendorListHolder.mTextView1.setText(currentVendor.getName());
-        vendorListHolder.mTextView3.setText("Cost: "+"" + currentVendor.getCost());
+        vendorListHolder.mTextView3.setText("Email id: "+"" + currentVendor.getVendorEmail());
         vendorListHolder.mTextView2.setText("" + currentVendor.getNumber());
     }
 

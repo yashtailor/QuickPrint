@@ -321,4 +321,3 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
         });
     }
 }
-
