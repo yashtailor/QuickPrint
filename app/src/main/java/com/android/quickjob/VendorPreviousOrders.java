@@ -8,12 +8,20 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import java.util.ArrayList;
 
 public class VendorPreviousOrders extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
+    private ArrayList<VendorPreviousOrdersItems> previousOrdersItems;
+    private RecyclerView recyclerView;
+    private VendorsPreviousOrdersAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +37,28 @@ public class VendorPreviousOrders extends AppCompatActivity implements Navigatio
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.bringToFront();
+
+        setRecyclerViewOfVendorPreviousOrders();
     }
 
+    private void setRecyclerViewOfVendorPreviousOrders() {
+        previousOrdersItems = new ArrayList<>();
+        recyclerView = (RecyclerView)findViewById(R.id.vendorPreviousOrdersRecyclerView);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        adapter = new VendorsPreviousOrdersAdapter(previousOrdersItems);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        adapter.setOnItemClickListener(new VendorsPreviousOrdersAdapter.OnVendorDeleteIconClickListener() {
+            @Override
+            public void onVendorDeleteClick(int position) {
+                previousOrdersItems.remove(position);
+                adapter.notifyItemRemoved(position);
+            }
+        });
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 

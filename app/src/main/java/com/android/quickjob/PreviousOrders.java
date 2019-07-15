@@ -36,7 +36,10 @@ public class PreviousOrders extends AppCompatActivity implements NavigationView.
 
     private void setRecyclerViewOfPreviousOrders() {
         previousOrdersItems = new ArrayList<>();
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerViewPreviousOrders);
+        previousOrdersItems.add(new PreviousOrdersItems("yash","123","yash",12));
+        previousOrdersItems.add(new PreviousOrdersItems("yash","123","yash",12));
+        previousOrdersItems.add(new PreviousOrdersItems("yash","123","yash",12));
+        recyclerView = (RecyclerView)findViewById(R.id.userRecyclerViewPreviousOrders);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         adapter = new PreviousOrdersAdapter(previousOrdersItems);
@@ -44,7 +47,8 @@ public class PreviousOrders extends AppCompatActivity implements NavigationView.
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        adapter.setOnItemClickListener(new PreviousOrdersAdapter.OnDeleteIconClickListener() {
+        adapter.setOnItemClickListener(
+                new PreviousOrdersAdapter.OnDeleteIconClickListener() {
             @Override
             public void onDeleteClick(int position) {
                 previousOrdersItems.remove(position);
@@ -52,6 +56,7 @@ public class PreviousOrders extends AppCompatActivity implements NavigationView.
             }
         });
     }
+
 
     private void setFieldsOfPreviousOrders() {
         drawer = findViewById(R.id.draw_layout);

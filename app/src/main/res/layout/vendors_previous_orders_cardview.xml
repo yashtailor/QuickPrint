@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fileNamePreviousOrder"
+            android:id="@+id/fileNamePreviousOrderVendor"
             android:textSize="20sp"
             android:textStyle="bold"
             android:text="File Name:"/>
@@ -22,17 +22,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/VendorNamePreviousOrder"
-            android:layout_below="@+id/fileNamePreviousOrder"
+            android:id="@+id/userNamePreviousOrderVendor"
+            android:layout_below="@+id/fileNamePreviousOrderVendor"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="Vendor Name:"/>
+            android:text="User Name:"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fileCostPreviousOrder"
-            android:layout_below="@+id/VendorNamePreviousOrder"
+            android:id="@+id/fileCostPreviousOrderVendor"
+            android:layout_below="@+id/userNamePreviousOrderVendor"
             android:textSize="20sp"
             android:textStyle="bold"
             android:text="File Cost:"/>
@@ -40,10 +40,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/finishTimePreviousOrder"
+            android:id="@+id/finishTimePreviousOrderVendor"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_below="@+id/fileCostPreviousOrder"
+            android:layout_below="@+id/fileCostPreviousOrderVendor"
             android:text="Time:"/>
 
         <Button
@@ -52,7 +52,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="9dp"
             android:background="@drawable/ic_delete"
-            android:id="@+id/deleteItemPreviousOrder"/>
+            android:id="@+id/deleteItemPreviousOrderVendor"/>
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>
