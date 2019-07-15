@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,8 +33,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+
 import static android.content.Intent.ACTION_GET_CONTENT;
 import static android.content.Intent.ACTION_PICK;
 import static android.content.Intent.createChooser;
@@ -74,6 +77,7 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
         Intent intent = getIntent();
         String action = intent.getAction();
         String type = intent.getType();
+
     }
 
     @Override

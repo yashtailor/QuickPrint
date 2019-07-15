@@ -31,6 +31,7 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
     private RecyclerView.LayoutManager mLayoutManager;
     static ArrayList<VendorData> data=new ArrayList<>();
     private DatabaseReference databaseReference;
+    NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,24 +50,6 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
 
         buildRecyclerView(data);
 
-        databaseReference= FirebaseDatabase.getInstance().getReference("Vendors");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                data.clear();
-                for(DataSnapshot ds:dataSnapshot.getChildren()) {
-                    VendorAddVerify vendorAddVerify=ds.getValue(VendorAddVerify.class);
-                    data.add(new VendorData(vendorAddVerify.getVendorName(),VendorProfile.aod.size(),vendorAddVerify.getEmail()));
-                    mAdapter.notifyItemInserted(data.size());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @Override
@@ -108,16 +91,36 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
+        databaseReference= FirebaseDatabase.getInstance().getReference("Vendors");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                data.clear();
+                for(DataSnapshot ds:dataSnapshot.getChildren()) {
+                    VendorAddVerify vendorAddVerify=ds.getValue(VendorAddVerify.class);
+                    data.add(new VendorData(vendorAddVerify.getVendorName(),VendorProfile.aod.size(),vendorAddVerify.getEmail()));
+                    mAdapter.notifyItemInserted(data.size());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         mAdapter.setOnClickListener(new VendorListAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
+            public void onItemClick(final int position) {
                 AlertDialog.Builder a_builder=new AlertDialog.Builder(VendorList.this);
                 a_builder.setMessage("Do you want to send this order?")
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                notificationManager=new NotificationManager(data.get(position).getVendorEmail(),getApplicationContext());
+                                databaseReference.child(notificationManager.getAppId()).child("Notifications").setValue("You have new orders");
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
