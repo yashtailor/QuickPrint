@@ -35,6 +35,7 @@ public class DeveloperOptions extends AppCompatActivity implements NavigationVie
     private RecyclerView.LayoutManager mLayoutManager;
     private FirebaseAuth mAuth;
     private DrawerLayout drawer;
+    NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +113,8 @@ public class DeveloperOptions extends AppCompatActivity implements NavigationVie
                                                     String uid=user.getUid();
                                                     databaseReference.child(uid).setValue(mVendorList.get(position));
                                                     Toast.makeText(DeveloperOptions.this,"Added successfully",Toast.LENGTH_LONG).show();
-                                                    VendorList.data.add(new VendorData(mVendorList.get(position).getVendorName(),position,position+1));
+                                                    notificationManager=new NotificationManager(mAuth.getCurrentUser().getEmail(),getApplicationContext());
+                                                    notificationManager.setAppId(mAuth.getUid());
                                                     mVendorList.remove(position);
                                                     mAdapter.notifyItemRemoved(position);
                                                 }

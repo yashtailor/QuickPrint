@@ -21,7 +21,7 @@ public class VendorProfile extends AppCompatActivity implements NavigationView.O
     private RecyclerView vRecyclerView;
     private RecyclerView.Adapter vAdapter;
     private RecyclerView.LayoutManager vLayoutManager;
-
+    static ArrayList<OrderData> aod=new ArrayList<>();
 
 
     @Override
@@ -39,7 +39,6 @@ public class VendorProfile extends AppCompatActivity implements NavigationView.O
         toggle.syncState();
         navigationView.bringToFront();
 
-        ArrayList<OrderData> aod = new ArrayList<>();
         vRecyclerView = (RecyclerView) findViewById(R.id.vendorRecyclerView);
         vRecyclerView.setHasFixedSize(true);
         vLayoutManager = new LinearLayoutManager(this);

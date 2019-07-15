@@ -3,12 +3,12 @@ package com.android.quickjob;
 public class VendorData {
     private String vendorName;
     private int vendorNumber;
-    private int vendorCost;
+    private String vendorEmail;
 
-    public VendorData(String name, int number, int cost) {
-        this.vendorName = name;
-        this.vendorNumber = number;
-        this.vendorCost = cost;
+    public VendorData(String name, int number, String email) {
+        vendorName = name;
+        vendorNumber = number;
+        vendorEmail=email;
     }
 
     public String getName() {
@@ -19,7 +19,7 @@ public class VendorData {
         return vendorNumber;
     }
 
-    public int getCost() {
-        return vendorCost;
+    public String getVendorEmail() {
+        return vendorEmail;
     }
 }

@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressDialog progressDialog;
     private DatabaseReference databaseReference;
 
+    private NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressDialog = new ProgressDialog(this);
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference= FirebaseDatabase.getInstance().getReference("Users");
+
 
         //Attaching on click Listener for registering and logging in
         registerUser.setOnClickListener(this);
@@ -124,6 +126,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     databaseReference.child(uid).setValue(userDatabase);
                     Toast.makeText(MainActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
+                    notificationManager=new NotificationManager(firebaseAuth.getCurrentUser().getEmail(),getApplicationContext());
+                    notificationManager.setAppId(firebaseAuth.getUid());
                     finish();
                     startActivity(new Intent(getApplicationContext(), UserProfile.class));
                 } else {
