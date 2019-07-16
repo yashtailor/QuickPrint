@@ -5,6 +5,7 @@ public class VendorData {
     private int vendorNumber;
     private String vendorEmail;
 
+
     public VendorData(String name, int number, String email) {
         vendorName = name;
         vendorNumber = number;
@@ -22,4 +23,5 @@ public class VendorData {
     public String getVendorEmail() {
         return vendorEmail;
     }
+
 }

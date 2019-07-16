@@ -9,6 +9,7 @@
     <RelativeLayout
         android:id="@+id/orderrecycler"
         android:layout_width="match_parent"
+        android:background="@drawable/interesting_stuff"
         android:layout_height="60dp"
         android:layout_margin="4dp">
 

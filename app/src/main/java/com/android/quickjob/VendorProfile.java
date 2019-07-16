@@ -46,6 +46,8 @@ public class VendorProfile extends AppCompatActivity implements NavigationView.O
         vRecyclerView.setLayoutManager(vLayoutManager);
         vRecyclerView.setAdapter(vAdapter);
 
+        //startActivity(new Intent(getApplicationContext(),VendorPendingOrders.class));
+
     }
 
     @Override
@@ -57,7 +59,8 @@ public class VendorProfile extends AppCompatActivity implements NavigationView.O
             startActivity(new Intent(getApplicationContext(), VendorEditDetails.class));
             finish();
         } else if (menuItem.getItemId() == R.id.nav_previousorders_vendor) {
-            startActivity(new Intent(getApplicationContext(), VendorPreviousOrders.class));
+            //startActivity(new Intent(getApplicationContext(), VendorPreviousOrders.class));
+            startActivity(new Intent(getApplicationContext(),VendorPendingOrders.class));
             finish();
         } else if (menuItem.getItemId() == R.id.nav_settings_vendor) {
             startActivity(new Intent(getApplicationContext(), VendorSettings.class));

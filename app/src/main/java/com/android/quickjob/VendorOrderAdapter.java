@@ -41,7 +41,6 @@ public class VendorOrderAdapter extends RecyclerView.Adapter<VendorOrderAdapter.
 
         OrderData currentData = orderData.get(i);
         vendorOrderHolder.vTextView1.setText(currentData.getrecyclerOrderName());
-        vendorOrderHolder.vTextView2.setText(currentData.getrecyclerPrintType());
     }
 
     @Override

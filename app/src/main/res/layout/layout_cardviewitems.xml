@@ -9,7 +9,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#EBB55E">
+            android:background="@drawable/interesting_stuff">
 
             <TextView
                 android:id="@+id/fileName"

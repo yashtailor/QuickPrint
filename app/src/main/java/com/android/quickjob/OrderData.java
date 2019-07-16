@@ -4,17 +4,15 @@ public class OrderData {
 
 
     private String vOrderName;
-    private String vPrintTyoe;
 
 
-    public OrderData(String vOrderName,String vPrintType){
+
+    public OrderData(String vOrderName){
         this.vOrderName=vOrderName;
-        this.vPrintTyoe=vPrintType;
     }
 
-
-    public String getrecyclerPrintType() {
-        return vPrintTyoe;
+    public void setvOrderName(String vOrderName) {
+        this.vOrderName = vOrderName;
     }
 
     public String getrecyclerOrderName() {

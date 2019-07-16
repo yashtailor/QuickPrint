@@ -1,11 +1,14 @@
 package com.android.quickjob;
 
+import android.net.Uri;
+
 public class FileItems {
-private String fileName,path;
+private String fileName;
+private Uri path;
 private int fileCost,numberOfPages;
 
 
-    public FileItems(String fileName, int fileCost, int numberOfPages,String path) {
+    public FileItems(String fileName, int fileCost, int numberOfPages,Uri path) {
         this.fileName = fileName;
         this.fileCost = fileCost;
         this.numberOfPages = numberOfPages;
@@ -29,11 +32,11 @@ private int fileCost,numberOfPages;
         this.fileName = fileName;
     }
 
-    public String getPath() {
+    public Uri getPath() {
         return path;
     }
 
-    public void setPath(String path) {
+    public void setPath(Uri path) {
         this.path = path;
     }
 

@@ -58,7 +58,7 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
     Uri file;
     UploadTask uploadTask;
     FirebaseUser user;
-    private static ArrayList<FileItems> fileItems;
+    public static ArrayList<FileItems> fileItems;
     private String path;
     private String fileId;
     private String fileName;
@@ -168,7 +168,7 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
 
             @Override
             public void onItemClick(int position) {
-                StorageReference desertRef = storageReference.child(fileItems.get(position).getPath());
+                StorageReference desertRef = storageReference.child(fileItems.get(position).getPath().toString());
                 // Delete the file
                 desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -281,7 +281,7 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
-    public void uploadImage(Intent data) {
+    public void uploadImage(final Intent data) {
         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -292,7 +292,7 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                fileItems.add(new FileItems(getFileName(file),1,1,fileId));
+                fileItems.add(new FileItems(getFileName(file),1,1,data.getData()));
                 adapter.notifyDataSetChanged();
 
                 Toast.makeText(UserProfile.this, "Added to cart", Toast.LENGTH_LONG).show();
@@ -313,7 +313,7 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                fileItems.add(new FileItems(getFileName(file),1,1,fileId));
+                fileItems.add(new FileItems(getFileName(file),1,1,file));
                 adapter.notifyDataSetChanged();
                 Toast.makeText(UserProfile.this, "Added in cart", Toast.LENGTH_LONG).show();
             }
