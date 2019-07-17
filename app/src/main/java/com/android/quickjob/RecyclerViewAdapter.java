@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,7 +22,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public interface OnItemClickListener {
         void onItemClick(int position);
 
-        void onRadioClick(int position, int index);
+        void onColorChange(int position,int i);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -48,11 +46,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         FileItems fileItems = fileList.get(i);
-        viewHolder.txtPages.setText("Number of Pages:" + fileItems.getNumberOfPages());
-        viewHolder.txtCost.setText("Cost of File:" + fileItems.getFileCost());
+        //viewHolder.txtPages.setText("Number of Pages:" + fileItems.getNumberOfPages());
+        viewHolder.txtCost.setText("Cost of one page:" + fileItems.getFileCost());
         viewHolder.txtName.setText("Name:" + fileItems.getFileName());
-        viewHolder.btnBandW.setChecked(true);
-
     }
 
     @Override
@@ -61,10 +57,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtName, txtCost, txtPages;
+        TextView txtName, txtCost, txtPages,txtBW,txtColor;
         Button btnDelete;
-        RadioButton btnBandW, btnColor;
-        RadioGroup colorDecider;
 
         public ViewHolder(@NonNull final View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -72,9 +66,31 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             txtCost = (TextView) itemView.findViewById(R.id.fileCost);
             txtPages = (TextView) itemView.findViewById(R.id.filePages);
             btnDelete = (Button) itemView.findViewById(R.id.deleteItem);
-            btnBandW = (RadioButton) itemView.findViewById(R.id.blackAndWhite);
-            btnColor = (RadioButton) itemView.findViewById(R.id.color);
-            colorDecider = (RadioGroup) itemView.findViewById(R.id.colorCombo);
+            txtBW=(TextView) itemView.findViewById(R.id.blackNWhite);
+            txtColor=(TextView) itemView.findViewById(R.id.color);
+
+            txtBW.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onColorChange(position,0);
+                        }
+                    }
+                }
+            });
+            txtColor.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onColorChange(position,1);
+                        }
+                    }
+                }
+            });
 
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -84,32 +100,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         if (position != RecyclerView.NO_POSITION) {
                             listener.onItemClick(position);
 
-                        }
-                    }
-                }
-            });
-
-            itemView.findViewById(R.id.blackAndWhite).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(listener!=null){
-                        int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
-                            btnBandW.setChecked(true);
-                            listener.onRadioClick(position, 0);
-                        }
-                    }
-                }
-            });
-
-            itemView.findViewById(R.id.color).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(listener!=null){
-                        int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
-                            btnColor.setChecked(true);
-                            listener.onRadioClick(position, 1);
                         }
                     }
                 }

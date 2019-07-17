@@ -24,7 +24,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -37,8 +36,8 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
     private RecyclerView.LayoutManager mLayoutManager;
     static ArrayList<VendorData> data=new ArrayList<>();
     private DatabaseReference databaseReference;
-    NotificationManager notificationManager;
-    private StorageReference firebaseStorage;
+    //NotificationManager notificationManager;
+    //private StorageReference firebaseStorage;
     private FirebaseAuth user;
     private int pos;
 
@@ -56,35 +55,6 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.bringToFront();
-
-        mRecyclerView=findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager=new LinearLayoutManager(this);
-        mAdapter=new VendorListAdapter(data);
-
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
-
-        databaseReference= FirebaseDatabase.getInstance().getReference("Vendors");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                data.clear();
-                mAdapter.notifyDataSetChanged();
-                for(DataSnapshot ds:dataSnapshot.getChildren()) {
-                    VendorAddVerify vendorAddVerify=ds.getValue(VendorAddVerify.class);
-                    data.add(new VendorData(vendorAddVerify.getVendorName(),VendorProfile.aod.size(),vendorAddVerify.getEmail()));
-                    mAdapter.notifyItemInserted(data.size());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
         buildRecyclerView(data);
         user = FirebaseAuth.getInstance();
 
@@ -121,6 +91,31 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
         }
     }
     public void buildRecyclerView(final ArrayList<VendorData> data) {
+        databaseReference= FirebaseDatabase.getInstance().getReference("Vendors");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                data.clear();
+                for(DataSnapshot ds:dataSnapshot.getChildren()) {
+                    VendorAddVerify vendorAddVerify=ds.getValue(VendorAddVerify.class);
+                    data.add(new VendorData(vendorAddVerify.getVendorName(),VendorPendingOrders.aod1.size(),vendorAddVerify.getEmail()));
+                    mAdapter.notifyItemInserted(data.size());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        mRecyclerView=findViewById(R.id.recyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager=new LinearLayoutManager(this);
+        mAdapter=new VendorListAdapter(data);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnClickListener(new VendorListAdapter.OnItemClickListener() {
             @Override

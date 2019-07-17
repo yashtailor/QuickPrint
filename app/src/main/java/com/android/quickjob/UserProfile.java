@@ -195,12 +195,12 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
             }
 
             @Override
-            public void onRadioClick(int position, int index) {
-                if (index == 0)
+            public void onColorChange(int position, int i) {
+                if(i==0) {
                     fileItems.get(position).setFileCost(1);
-                else if (index == 1)
+                } else if(i==1) {
                     fileItems.get(position).setFileCost(2);
-
+                }
                 adapter.notifyItemChanged(position);
             }
         });

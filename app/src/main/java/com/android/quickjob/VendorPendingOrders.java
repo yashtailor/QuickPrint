@@ -35,7 +35,7 @@ public class VendorPendingOrders extends AppCompatActivity implements Navigation
     private RecyclerView.LayoutManager vPendingLayoutManager;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
-    private ArrayList<OrderData> aod1 = new ArrayList<>();
+    static ArrayList<OrderData> aod1 = new ArrayList<>();
     private int position;
 
 

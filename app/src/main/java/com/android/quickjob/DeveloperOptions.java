@@ -115,6 +115,7 @@ public class DeveloperOptions extends AppCompatActivity implements NavigationVie
                                                     Toast.makeText(DeveloperOptions.this,"Added successfully",Toast.LENGTH_LONG).show();
                                                     notificationManager=new NotificationManager(mAuth.getCurrentUser().getEmail(),getApplicationContext());
                                                     notificationManager.setAppId(mAuth.getUid());
+                                                    notificationManager.setAvailableVendorData(mVendorList.get(position).getVendorName(),mAuth.getCurrentUser().getEmail());
                                                     mVendorList.remove(position);
                                                     mAdapter.notifyItemRemoved(position);
                                                 }

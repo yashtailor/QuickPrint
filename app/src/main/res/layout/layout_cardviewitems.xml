@@ -23,43 +23,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/filePages"
-                android:text="FILE PAGES"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:layout_below="@+id/fileName"/>
+                android:layout_below="@+id/fileCost"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fileCost"
+                android:paddingTop="10dp"
                 android:textStyle="bold"
                 android:text="FILE COST"
                 android:textSize="20dp"
-                android:layout_below="@+id/filePages"/>
+                android:layout_below="@+id/fileName"/>
 
-            <RadioGroup
-                android:id="@+id/colorCombo"
+            <TextView
+                android:id="@+id/blackNWhite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_below="@+id/fileName"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="20dp"
                 android:layout_toLeftOf="@+id/deleteItem"
-                android:layout_below="@+id/fileName">
-
-                <RadioButton
-                    android:id="@+id/blackAndWhite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="B/W"
-                    android:checked="true"
-                    />
-
-                <RadioButton
-                    android:id="@+id/color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Color"
-                    />
-            </RadioGroup>
+                android:text="B/W"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/blackNWhite"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/deleteItem"
+                android:paddingTop="10dp"
+                android:text="Colour"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <Button
                 android:layout_width="80dp"

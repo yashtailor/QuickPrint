@@ -8,6 +8,7 @@ public class NotificationManager {
     Context context;
     SharedPreferences.Editor editor;
 
+
     public NotificationManager(String email,Context context) {
         this.context = context;
         sharedPreferences=context.getSharedPreferences(email,Context.MODE_PRIVATE);
@@ -19,7 +20,15 @@ public class NotificationManager {
         editor.apply();
     }
 
+    public void setAvailableVendorData(String name,String email) {
+        editor.putString("nameData",name);
+        editor.putString("emailData",email);
+        editor.apply();
+    }
+
     public String getAppId() {
         return sharedPreferences.getString("userid",null);
     }
+
+
 }

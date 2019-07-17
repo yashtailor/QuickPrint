@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +33,7 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
     private EditText newemail, newpassword, oldpassword, newpassword2;
     private TextView forgot_password;
     private Button edit_btn;
-    private FirebaseUser user,mUser;
+    private FirebaseUser user, mUser;
     private DatabaseReference databaseReference;
 
     @Override
@@ -52,7 +51,7 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
         toggle.syncState();
         navigationView.bringToFront();
 
-        mUser=FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         editDetails();
         passwordRetrieving();
@@ -73,8 +72,8 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
             startActivity(new Intent(getApplicationContext(), Settings.class));
             finish();
         } else if (menuItem.getItemId() == R.id.nav_about) {
-            if(mUser.getEmail().equals("aaathorve@gmail.com")||mUser.getEmail().equals("yashtailor2000@gmail.com")||mUser.getEmail().equals("02aditya96@gmail.com")) {
-                startActivity(new Intent(getApplicationContext(),DeveloperOptions.class));
+            if (mUser.getEmail().equals("aaathorve@gmail.com") || mUser.getEmail().equals("yashtailor2000@gmail.com") || mUser.getEmail().equals("02aditya96@gmail.com")) {
+                startActivity(new Intent(getApplicationContext(), DeveloperOptions.class));
                 finish();
             } else {
                 //Toast.makeText(getApplicationContext(),"Not a developer",Toast.LENGTH_SHORT);
@@ -102,23 +101,23 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
         edit_btn = (Button) findViewById(R.id.button);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference= FirebaseDatabase.getInstance().getReference("Users");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
         edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //final StringBuilder sb = new StringBuilder();
-                Log.e("email empty",""+TextUtils.isEmpty(newemail.getText().toString()));
+                //Log.e("email empty",""+TextUtils.isEmpty(newemail.getText().toString()));
                 //System.out.println(sb);
                 if (!TextUtils.isEmpty(newemail.getText().toString())) {
                     final String email = newemail.getText().toString().trim();
-                    Log.e("Valid Email: ",""+isEmailValid(email));
+                    //Log.e("Valid Email: ",""+isEmailValid(email));
                     if (!isEmailValid(email)) {
                         newemail.getText().clear();
                         Toast.makeText(EditDetails.this, "Invalid Email", Toast.LENGTH_LONG).show();
                         return;
                     } else {
-                        Log.e("else ","here");
+                        //Log.e("else ","here");
                         user.updateEmail(email)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -126,10 +125,11 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
                                         newemail.getText().clear();
                                     }
                                 });
+                        Toast.makeText(EditDetails.this, "Details edited", Toast.LENGTH_LONG).show();
                         databaseReference.child(user.getUid()).child("userEmail").setValue(email);
                     }
                 }
-                System.out.println(TextUtils.isEmpty(oldpassword.getText().toString()));
+                //System.out.println(TextUtils.isEmpty(oldpassword.getText().toString()));
                 if (!TextUtils.isEmpty(oldpassword.getText().toString().trim())) {
                     String password1 = oldpassword.getText().toString().trim();
                     AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), password1);
@@ -141,10 +141,10 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
                                         final String password2, password3;
                                         password2 = newpassword.getText().toString().trim();
                                         password3 = newpassword2.getText().toString().trim();
-                                        System.out.println(TextUtils.isEmpty(newpassword.getText().toString()));
-                                        System.out.println(TextUtils.isEmpty(newpassword2.getText().toString()));
+                                        //System.out.println(TextUtils.isEmpty(newpassword.getText().toString()));
+                                        //System.out.println(TextUtils.isEmpty(newpassword2.getText().toString()));
                                         if (!(password2.contains("_") || password2.trim().length() < 6 || password2.trim().length() > 24)) {
-                                            if (password2.equals(password3) && !TextUtils.isEmpty(password3)) {
+                                            if (!TextUtils.isEmpty(password3) && password2.equals(password3)) {
                                                 user.updatePassword(password2)
                                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
@@ -152,6 +152,7 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
                                                                 oldpassword.getText().clear();
                                                                 newpassword.getText().clear();
                                                                 newpassword2.getText().clear();
+                                                                Toast.makeText(EditDetails.this, "Details edited", Toast.LENGTH_LONG).show();
                                                                 //sb.append("Password updated\n");
                                                             }
                                                         });
@@ -170,21 +171,31 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
                                             return;
                                         }
                                     } else {
-                                        Toast.makeText(EditDetails.this,"Incorrect Password",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(EditDetails.this, "Incorrect Password", Toast.LENGTH_LONG).show();
+                                        if(!TextUtils.isEmpty(newpassword.getText())) {
+                                            newpassword.getText().clear();
+                                        } if(!TextUtils.isEmpty(newpassword2.getText())) {
+                                            newpassword2.getText().clear();
+                                        }
                                         oldpassword.getText().clear();
+                                        return;
                                     }
                                 }
                             });
+                } else {
+                    if(TextUtils.isEmpty(newemail.getText())) {
+                        Toast.makeText(getApplicationContext(), "Enter previous password", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
-                Toast.makeText(EditDetails.this,"Details edited", Toast.LENGTH_LONG).show();
-
             }
         });
     }
+
     public void passwordRetrieving() {
         forgot_password = (TextView) findViewById(R.id.textView);
         user = FirebaseAuth.getInstance().getCurrentUser();
-        final FirebaseAuth mAuth=FirebaseAuth.getInstance();
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         forgot_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,8 +203,8 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isComplete()) {
-                                    Toast.makeText(EditDetails.this,"Password reset email sent.",Toast.LENGTH_LONG).show();
+                                if (task.isComplete()) {
+                                    Toast.makeText(EditDetails.this, "Password reset email sent.", Toast.LENGTH_LONG).show();
                                 }
                             }
                         });

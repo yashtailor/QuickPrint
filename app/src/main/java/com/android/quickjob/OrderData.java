@@ -2,10 +2,7 @@ package com.android.quickjob;
 
 public class OrderData {
 
-
     private String vOrderName;
-
-
 
     public OrderData(String vOrderName){
         this.vOrderName=vOrderName;
