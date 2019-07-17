@@ -40,7 +40,7 @@ public class VendorOrderAdapter extends RecyclerView.Adapter<VendorOrderAdapter.
     public void onBindViewHolder(@NonNull VendorOrderHolder vendorOrderHolder, int i) {
 
         OrderData currentData = orderData.get(i);
-        vendorOrderHolder.vTextView1.setText(currentData.getrecyclerOrderName());
+        vendorOrderHolder.vTextView1.setText(currentData.getRecyclerOrderName());
     }
 
     @Override

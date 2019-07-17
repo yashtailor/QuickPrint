@@ -34,7 +34,7 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
     private EditText newemail, newpassword, oldpassword, newpassword2;
     private TextView forgot_password;
     private Button edit_btn;
-    private FirebaseUser user;
+    private FirebaseUser user,mUser;
     private DatabaseReference databaseReference;
 
     @Override
@@ -51,6 +51,8 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.bringToFront();
+
+        mUser=FirebaseAuth.getInstance().getCurrentUser();
 
         editDetails();
         passwordRetrieving();
@@ -71,8 +73,13 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
             startActivity(new Intent(getApplicationContext(), Settings.class));
             finish();
         } else if (menuItem.getItemId() == R.id.nav_about) {
-            startActivity(new Intent(getApplicationContext(), DeveloperOptions.class));
-            finish();
+            if(mUser.getEmail().equals("aaathorve@gmail.com")||mUser.getEmail().equals("yashtailor2000@gmail.com")||mUser.getEmail().equals("02aditya96@gmail.com")) {
+                startActivity(new Intent(getApplicationContext(),DeveloperOptions.class));
+                finish();
+            } else {
+                //Toast.makeText(getApplicationContext(),"Not a developer",Toast.LENGTH_SHORT);
+                onBackPressed();
+            }
         }
         return true;
 

@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.auth.FirebaseUser;
+
 
 import java.util.ArrayList;
 
@@ -32,6 +34,8 @@ public class PreviousOrders extends AppCompatActivity implements NavigationView.
     private RecyclerView.LayoutManager layoutManager;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
+    private FirebaseUser mUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,8 @@ public class PreviousOrders extends AppCompatActivity implements NavigationView.
 
             }
         });
+
+        mUser= FirebaseAuth.getInstance().getCurrentUser();
 
         adapter.setOnItemClickListener(
                 new PreviousOrdersAdapter.OnDeleteIconClickListener() {
@@ -132,8 +138,13 @@ public class PreviousOrders extends AppCompatActivity implements NavigationView.
             startActivity(new Intent(getApplicationContext(), Settings.class));
             finish();
         } else if (menuItem.getItemId() == R.id.nav_about) {
-            startActivity(new Intent(getApplicationContext(), DeveloperOptions.class));
-            finish();
+            if(mUser.getEmail().equals("aaathorve@gmail.com")||mUser.getEmail().equals("yashtailor2000@gmail.com")||mUser.getEmail().equals("02aditya96@gmail.com")) {
+                startActivity(new Intent(getApplicationContext(),DeveloperOptions.class));
+                finish();
+            }else {
+                //Toast.makeText(getApplicationContext(),"Not a developer",Toast.LENGTH_SHORT);
+                onBackPressed();
+            }
         }
         return true;
 

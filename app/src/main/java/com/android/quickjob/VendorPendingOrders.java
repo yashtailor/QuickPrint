@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -81,6 +82,7 @@ public class VendorPendingOrders extends AppCompatActivity implements Navigation
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String value = ds.getValue(String.class);
                     //OrderData orderData = ds.getValue(OrderData.class);
+                    Log.e("value",value);
                     OrderData orderData = new OrderData(value);
                     aod1.add(orderData);
                     vPendingAdapter.notifyItemInserted(aod1.size());
@@ -136,8 +138,8 @@ public class VendorPendingOrders extends AppCompatActivity implements Navigation
                         // notificationManager=new NotificationManager(data.get(position).getVendorEmail(),getApplicationContext());
                         // databaseReference.child(notificationManager.getAppId()).child("Notifications").setValue("You have new orders");
                         Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                        String[] userEmail = {aod1.get(pos).getrecyclerOrderName()};
-                        emailIntent.putExtra(Intent.EXTRA_EMAIL, userEmail);
+                        String[] userEmail = {aod1.get(pos).getRecyclerOrderName()};
+                        emailIntent.putExtra(Intent.EXTRA_EMAIL, userEmail );
                         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Order completion");
                         emailIntent.setType("message/rfc822");
                         emailIntent.putExtra(Intent.EXTRA_TEXT, "Your Order Has Been Completed Through QuickJobApp");
@@ -196,10 +198,10 @@ public class VendorPendingOrders extends AppCompatActivity implements Navigation
         Date date = Calendar.getInstance().getTime();
         String previousOrderID = orderReferenceDatabase.push().getKey();
 
-        VendorPreviousOrdersItems previousOrdersItems = new VendorPreviousOrdersItems(date,aod1.get(position).getrecyclerOrderName());
+        VendorPreviousOrdersItems previousOrdersItems = new VendorPreviousOrdersItems(date,aod1.get(position).getRecyclerOrderName());
         orderReferenceDatabase.child(previousOrderID).setValue(previousOrdersItems);
 
-        NotificationManager notificationManager = new NotificationManager(aod1.get(position).getrecyclerOrderName(), this);
+        NotificationManager notificationManager = new NotificationManager(aod1.get(position).getRecyclerOrderName(), this);
         userPreviousReference = FirebaseDatabase.getInstance().getReference("Users").child(notificationManager.getAppId()).child("previousOrders");
         String userPreviousOrderID = userPreviousReference.push().getKey();
         VendorPreviousOrdersItems userPreviousOrdersItems = new VendorPreviousOrdersItems(date,firebaseAuth.getCurrentUser().getEmail());

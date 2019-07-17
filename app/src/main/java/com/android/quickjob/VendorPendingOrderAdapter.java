@@ -46,7 +46,7 @@ public class VendorPendingOrderAdapter extends RecyclerView.Adapter<VendorPendin
     }
 
     public VendorPendingOrderAdapter(ArrayList<OrderData> orderData){
-        this.pendingOrderData = orderData ;
+        pendingOrderData = orderData ;
     }
 
     @NonNull
@@ -60,7 +60,7 @@ public class VendorPendingOrderAdapter extends RecyclerView.Adapter<VendorPendin
     public void onBindViewHolder(@NonNull VendorPendingOrderAdapter.VendorPendingOrderHolder vendorPendingOrderHolder, int i) {
 
         OrderData currentData = pendingOrderData.get(i);
-        vendorPendingOrderHolder.vTextView1.setText(currentData.getrecyclerOrderName());
+        vendorPendingOrderHolder.vTextView1.setText(currentData.getRecyclerOrderName());
 
     }
 
