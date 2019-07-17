@@ -14,9 +14,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,18 +27,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class VendorPendingOrders extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener , VendorPendingOrderAdapter.OnCheckBoxPressed {
 
-    private static final int DONE_WITH_ORDER = 1 ;
+    private static final int DONE_WITH_ORDER = 1;
     private DrawerLayout drawer;
     private RecyclerView vPendingRecyclerView;
     private VendorPendingOrderAdapter vPendingAdapter;
     private RecyclerView.LayoutManager vPendingLayoutManager;
     private DatabaseReference databaseReference;
+    private DatabaseReference orderReferenceDatabase;
+    private DatabaseReference userPreviousReference;
     private FirebaseAuth firebaseAuth;
     private ArrayList<OrderData> aod1 = new ArrayList<>();
     private int position;
+    private ArrayList<String> orderIdList;
 
 
     @Override
@@ -63,6 +70,7 @@ public class VendorPendingOrders extends AppCompatActivity implements Navigation
         vPendingRecyclerView.setAdapter(vPendingAdapter);
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Vendors").child(firebaseAuth.getCurrentUser().getUid()).child("orders");
+        orderReferenceDatabase = FirebaseDatabase.getInstance().getReference("Vendors").child(firebaseAuth.getCurrentUser().getUid()).child("previousOrders");
 
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -129,7 +137,7 @@ public class VendorPendingOrders extends AppCompatActivity implements Navigation
                         // databaseReference.child(notificationManager.getAppId()).child("Notifications").setValue("You have new orders");
                         Intent emailIntent = new Intent(Intent.ACTION_SEND);
                         String[] userEmail = {aod1.get(pos).getrecyclerOrderName()};
-                        emailIntent.putExtra(Intent.EXTRA_EMAIL, userEmail );
+                        emailIntent.putExtra(Intent.EXTRA_EMAIL, userEmail);
                         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Order completion");
                         emailIntent.setType("message/rfc822");
                         emailIntent.putExtra(Intent.EXTRA_TEXT, "Your Order Has Been Completed Through QuickJobApp");
@@ -149,12 +157,55 @@ public class VendorPendingOrders extends AppCompatActivity implements Navigation
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == DONE_WITH_ORDER){
-            aod1.remove(position);
-            vPendingAdapter.notifyItemRemoved(position);
+        if (requestCode == DONE_WITH_ORDER) {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                    int index = 0;
+                    for (final DataSnapshot ds : dataSnapshot.getChildren()) {
+                       if(index == position){
+                           ds.getRef().removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                               @Override
+                               public void onSuccess(Void aVoid) {
+                                   makeHistory();
+                                   aod1.remove(position);
+                                   vPendingAdapter.notifyItemRemoved(position);
+                                   Toast.makeText(getApplicationContext(), "Moved to History", Toast.LENGTH_SHORT).show();
+                               }
+                           }).addOnFailureListener(new OnFailureListener() {
+                               @Override
+                               public void onFailure(@NonNull Exception e) {
+                                   Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                               }
+                           });
+                       }
+                       index++;
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         }
     }
+
+    private void makeHistory() {
+        Date date = Calendar.getInstance().getTime();
+        String previousOrderID = orderReferenceDatabase.push().getKey();
+
+        VendorPreviousOrdersItems previousOrdersItems = new VendorPreviousOrdersItems(date,aod1.get(position).getrecyclerOrderName());
+        orderReferenceDatabase.child(previousOrderID).setValue(previousOrdersItems);
+
+        NotificationManager notificationManager = new NotificationManager(aod1.get(position).getrecyclerOrderName(), this);
+        userPreviousReference = FirebaseDatabase.getInstance().getReference("Users").child(notificationManager.getAppId()).child("previousOrders");
+        String userPreviousOrderID = userPreviousReference.push().getKey();
+        VendorPreviousOrdersItems userPreviousOrdersItems = new VendorPreviousOrdersItems(date,firebaseAuth.getCurrentUser().getEmail());
+        userPreviousReference.child(userPreviousOrderID).setValue(userPreviousOrdersItems);
+    }
+
 }
 
 

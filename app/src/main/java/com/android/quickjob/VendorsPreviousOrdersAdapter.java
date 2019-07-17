@@ -38,10 +38,10 @@ public class VendorsPreviousOrdersAdapter extends RecyclerView.Adapter<VendorsPr
     @Override
     public void onBindViewHolder(@NonNull PreviosOrdersViewHolder previosOrdersViewHolder, int i) {
         VendorPreviousOrdersItems ordersItems = previousOrdersItems.get(i);
-        previosOrdersViewHolder.fileName.setText(ordersItems.getFileName());
+       // previosOrdersViewHolder.fileName.setText(ordersItems.getFileName());
         previosOrdersViewHolder.userName.setText(ordersItems.getUserName());
-        previosOrdersViewHolder.fileCost.setText(Integer.toString(ordersItems.getCost()));
-        previosOrdersViewHolder.time.setText(ordersItems.getTimeOfCompletion());
+       // previosOrdersViewHolder.fileCost.setText(Integer.toString(ordersItems.getCost()));
+        previosOrdersViewHolder.time.setText(ordersItems.getTimeOfCompletion().toString());
     }
 
     @Override
@@ -51,13 +51,14 @@ public class VendorsPreviousOrdersAdapter extends RecyclerView.Adapter<VendorsPr
 
     public class PreviosOrdersViewHolder extends RecyclerView.ViewHolder{
 
-        TextView fileName,fileCost,userName,time;
+        TextView userName,time;
+        //TextView fileCost,fileName;
         Button btnDelete;
 
         public PreviosOrdersViewHolder(@NonNull View itemView) {
             super(itemView);
-            fileName = (TextView)itemView.findViewById(R.id.fileNamePreviousOrderVendor);
-            fileCost = (TextView)itemView.findViewById(R.id.fileCostPreviousOrderVendor);
+            //fileName = (TextView)itemView.findViewById(R.id.fileNamePreviousOrderVendor);
+            //fileCost = (TextView)itemView.findViewById(R.id.fileCostPreviousOrderVendor);
             userName = (TextView)itemView.findViewById(R.id.userNamePreviousOrderVendor);
             time = (TextView)itemView.findViewById(R.id.finishTimePreviousOrderVendor);
             btnDelete = (Button)itemView.findViewById(R.id.deleteItemPreviousOrderVendor);

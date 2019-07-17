@@ -163,6 +163,7 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
         if(requestCode == OPENING_PAYEMENTS){
             String orderID = databaseReference.push().getKey();
             databaseReference.child(new NotificationManager(data.get(pos).getVendorEmail(), getApplicationContext()).getAppId()).child("orders").child(orderID).setValue(user.getCurrentUser().getEmail());
+            databaseReference.child(new NotificationManager(data.get(pos).getVendorEmail(), getApplicationContext()).getAppId()).child("ordersId").child(orderID).setValue(orderID);
             Toast.makeText(getApplicationContext(), "Redirecting to pay the amount", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), payments.class));
         }

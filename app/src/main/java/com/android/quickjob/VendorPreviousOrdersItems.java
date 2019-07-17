@@ -1,30 +1,25 @@
 package com.android.quickjob;
 
+import java.util.Date;
+
 public class VendorPreviousOrdersItems {
 
-    private String fileName,timeOfCompletion,userName;
-    private int cost;
+    private String userName;
+    private Date timeOfCompletion;
+    //private int cost;
 
-    public VendorPreviousOrdersItems(String fileName, String timeOfCompletion, String userName, int cost) {
-        this.fileName = fileName;
+    public VendorPreviousOrdersItems(Date timeOfCompletion, String userName) {
         this.timeOfCompletion = timeOfCompletion;
         this.userName = userName;
-        this.cost = cost;
+        //this.cost = cost;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public String getTimeOfCompletion() {
+    public Date getTimeOfCompletion() {
         return timeOfCompletion;
     }
 
-    public void setTimeOfCompletion(String timeOfCompletion) {
+    public void setTimeOfCompletion(Date timeOfCompletion) {
         this.timeOfCompletion = timeOfCompletion;
     }
 
@@ -36,13 +31,13 @@ public class VendorPreviousOrdersItems {
         this.userName = vendorName;
     }
 
-    public int getCost() {
-        return cost;
-    }
+    //public int getCost() {
+        //return cost;
+    //}
 
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
+   // public void setCost(int cost) {
+        //this.cost = cost;
+   // }
 
     public VendorPreviousOrdersItems() {
     }

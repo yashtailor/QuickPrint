@@ -9,34 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/interesting_stuff"
-        android:padding="10dp"
+        android:padding="5dp"
         android:layout_margin="5dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fileNamePreviousOrderVendor"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="File Name:"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/userNamePreviousOrderVendor"
-            android:layout_below="@+id/fileNamePreviousOrderVendor"
             android:textSize="20sp"
             android:textStyle="bold"
             android:text="User Name:"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fileCostPreviousOrderVendor"
-            android:layout_below="@+id/userNamePreviousOrderVendor"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="File Cost:"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,14 +28,14 @@
             android:id="@+id/finishTimePreviousOrderVendor"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_below="@+id/fileCostPreviousOrderVendor"
+            android:layout_below="@+id/userNamePreviousOrderVendor"
             android:text="Time:"/>
 
         <Button
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="9dp"
+            android:layout_marginRight="3dp"
             android:background="@drawable/ic_delete"
             android:id="@+id/deleteItemPreviousOrderVendor"/>
     </RelativeLayout>

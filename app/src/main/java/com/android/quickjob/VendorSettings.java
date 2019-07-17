@@ -51,7 +51,7 @@ public class VendorSettings extends AppCompatActivity implements NavigationView.
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
         if (menuItem.getItemId() == R.id.nav_vendorprofile) {
-            startActivity(new Intent(getApplicationContext(), VendorProfile.class));
+            startActivity(new Intent(getApplicationContext(), VendorPendingOrders.class));
             finish();
         } else if (menuItem.getItemId() == R.id.nav_editdetails_vendor) {
             startActivity(new Intent(getApplicationContext(), VendorEditDetails.class));

@@ -13,16 +13,25 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class PreviousOrders extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     private DrawerLayout drawer;
-    private ArrayList<PreviousOrdersItems> previousOrdersItems;
+    private ArrayList<VendorPreviousOrdersItems> previousOrdersItems;
     private RecyclerView recyclerView;
     private PreviousOrdersAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +45,7 @@ public class PreviousOrders extends AppCompatActivity implements NavigationView.
 
     private void setRecyclerViewOfPreviousOrders() {
         previousOrdersItems = new ArrayList<>();
-        previousOrdersItems.add(new PreviousOrdersItems("yash","123","yash",12));
-        previousOrdersItems.add(new PreviousOrdersItems("yash","123","yash",12));
-        previousOrdersItems.add(new PreviousOrdersItems("yash","123","yash",12));
+
         recyclerView = (RecyclerView)findViewById(R.id.userRecyclerViewPreviousOrders);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -46,13 +53,52 @@ public class PreviousOrders extends AppCompatActivity implements NavigationView.
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseAuth.getCurrentUser().getUid()).child("previousOrders");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                previousOrdersItems.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    VendorPreviousOrdersItems vendorPreviousOrdersItems = new VendorPreviousOrdersItems(ds.getValue(VendorPreviousOrdersItems.class).getTimeOfCompletion(),ds.getValue(VendorPreviousOrdersItems.class).getUserName());
+                    previousOrdersItems.add(vendorPreviousOrdersItems);
+                    adapter.notifyItemInserted(previousOrdersItems.size());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         adapter.setOnItemClickListener(
                 new PreviousOrdersAdapter.OnDeleteIconClickListener() {
             @Override
-            public void onDeleteClick(int position) {
+            public void onDeleteClick(final int position) {
                 previousOrdersItems.remove(position);
                 adapter.notifyItemRemoved(position);
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        int index = 0;
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            if(index == position){
+                                ds.getRef().removeValue();
+                                return;
+                            }
+                            index++;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
     }

@@ -12,10 +12,10 @@ import java.util.ArrayList;
 
 public class PreviousOrdersAdapter extends RecyclerView.Adapter<PreviousOrdersAdapter.PreviosOrdersViewHolder> {
 
-    private  static  ArrayList<PreviousOrdersItems> previousOrdersItems;
+    private  static  ArrayList<VendorPreviousOrdersItems> previousOrdersItems;
     OnDeleteIconClickListener listener;
 
-    public PreviousOrdersAdapter(ArrayList<PreviousOrdersItems> arrayList) {
+    public PreviousOrdersAdapter(ArrayList<VendorPreviousOrdersItems> arrayList) {
         previousOrdersItems = arrayList;
     }
 
@@ -37,11 +37,11 @@ public class PreviousOrdersAdapter extends RecyclerView.Adapter<PreviousOrdersAd
 
     @Override
     public void onBindViewHolder(@NonNull PreviosOrdersViewHolder previosOrdersViewHolder, int i) {
-        PreviousOrdersItems ordersItems = previousOrdersItems.get(i);
-        previosOrdersViewHolder.fileName.setText(ordersItems.getFileName());
-        previosOrdersViewHolder.vendorName.setText(ordersItems.getVendorName());
-        previosOrdersViewHolder.fileCostTemp.setText(Integer.toString(ordersItems.getCost()));
-        previosOrdersViewHolder.time.setText(ordersItems.getTimeOfCompletion());
+        VendorPreviousOrdersItems ordersItems = previousOrdersItems.get(i);
+        //previosOrdersViewHolder.fileName.setText(ordersItems.getFileName());
+        previosOrdersViewHolder.vendorName.setText(ordersItems.getUserName());
+        //previosOrdersViewHolder.fileCostTemp.setText(Integer.toString(ordersItems.getCost()));
+        previosOrdersViewHolder.time.setText(ordersItems.getTimeOfCompletion().toString());
     }
 
     @Override
@@ -51,13 +51,13 @@ public class PreviousOrdersAdapter extends RecyclerView.Adapter<PreviousOrdersAd
 
     public class PreviosOrdersViewHolder extends RecyclerView.ViewHolder{
 
-        TextView fileName,fileCostTemp,vendorName,time;
+        TextView vendorName,time;
         Button btnDelete;
 
         public PreviosOrdersViewHolder(@NonNull View itemView) {
             super(itemView);
-            fileName = (TextView)itemView.findViewById(R.id.fileNamePreviousOrder);
-            fileCostTemp = (TextView)itemView.findViewById(R.id.fileCostPreviousOrder);
+            //fileName = (TextView)itemView.findViewById(R.id.fileNamePreviousOrder);
+            //fileCostTemp = (TextView)itemView.findViewById(R.id.fileCostPreviousOrder);
             vendorName = (TextView)itemView.findViewById(R.id.VendorNamePreviousOrder);
             time = (TextView)itemView.findViewById(R.id.finishTimePreviousOrder);
             btnDelete = (Button)itemView.findViewById(R.id.deleteItemPreviousOrder);
