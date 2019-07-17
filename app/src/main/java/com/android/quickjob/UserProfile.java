@@ -57,7 +57,7 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
     private static final int REQUEST_CODE_FILES = 1;
     Uri file;
     UploadTask uploadTask;
-    FirebaseUser user;
+    FirebaseUser user,mUser;
     public static ArrayList<FileItems> fileItems;
     private String path;
     private String fileId;
@@ -78,6 +78,7 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
         String action = intent.getAction();
         String type = intent.getType();
 
+        mUser=FirebaseAuth.getInstance().getCurrentUser();
     }
 
     @Override
@@ -95,8 +96,13 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
             startActivity(new Intent(getApplicationContext(), Settings.class));
             finish();
         } else if (menuItem.getItemId() == R.id.nav_about) {
-            startActivity(new Intent(getApplicationContext(), DeveloperOptions.class));
-            finish();
+            if(mUser.getEmail().equals("aaathorve@gmail.com")||mUser.getEmail().equals("yashtailor2000@gmail.com")||mUser.getEmail().equals("02aditya96@gmail.com")) {
+                startActivity(new Intent(getApplicationContext(),DeveloperOptions.class));
+                finish();
+            }else {
+                //Toast.makeText(getApplicationContext(),"Not a developer",Toast.LENGTH_SHORT);
+                onBackPressed();
+            }
         }
         return true;
 

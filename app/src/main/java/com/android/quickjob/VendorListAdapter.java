@@ -65,7 +65,7 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.Ve
 
         vendorListHolder.mTextView1.setText(currentVendor.getName());
         vendorListHolder.mTextView3.setText("Email id: "+"" + currentVendor.getVendorEmail());
-        vendorListHolder.mTextView2.setText("" + currentVendor.getNumber());
+        //vendorListHolder.mTextView2.setText("" + currentVendor.getNumber());
     }
 
     @Override

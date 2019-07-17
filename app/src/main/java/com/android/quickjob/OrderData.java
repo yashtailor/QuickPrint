@@ -15,7 +15,7 @@ public class OrderData {
         this.vOrderName = vOrderName;
     }
 
-    public String getrecyclerOrderName() {
+    public String getRecyclerOrderName() {
         return vOrderName;
     }
 }

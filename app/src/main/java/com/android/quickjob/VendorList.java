@@ -56,6 +56,35 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.bringToFront();
+
+        mRecyclerView=findViewById(R.id.recyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager=new LinearLayoutManager(this);
+        mAdapter=new VendorListAdapter(data);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+
+        databaseReference= FirebaseDatabase.getInstance().getReference("Vendors");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                data.clear();
+                mAdapter.notifyDataSetChanged();
+                for(DataSnapshot ds:dataSnapshot.getChildren()) {
+                    VendorAddVerify vendorAddVerify=ds.getValue(VendorAddVerify.class);
+                    data.add(new VendorData(vendorAddVerify.getVendorName(),VendorProfile.aod.size(),vendorAddVerify.getEmail()));
+                    mAdapter.notifyItemInserted(data.size());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         buildRecyclerView(data);
         user = FirebaseAuth.getInstance();
 
@@ -92,32 +121,6 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
         }
     }
     public void buildRecyclerView(final ArrayList<VendorData> data) {
-        mRecyclerView=findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager=new LinearLayoutManager(this);
-        mAdapter=new VendorListAdapter(data);
-
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
-
-        databaseReference= FirebaseDatabase.getInstance().getReference("Vendors");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                data.clear();
-                for(DataSnapshot ds:dataSnapshot.getChildren()) {
-                    VendorAddVerify vendorAddVerify=ds.getValue(VendorAddVerify.class);
-                    data.add(new VendorData(vendorAddVerify.getVendorName(),VendorProfile.aod.size(),vendorAddVerify.getEmail()));
-                    mAdapter.notifyItemInserted(data.size());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         mAdapter.setOnClickListener(new VendorListAdapter.OnItemClickListener() {
             @Override
