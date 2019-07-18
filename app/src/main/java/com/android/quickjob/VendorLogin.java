@@ -57,7 +57,7 @@ public class VendorLogin extends AppCompatActivity {
                     editor.putBoolean("flag2",false);
                     editor.apply();
                     finish();
-                    startActivity(new Intent(getApplicationContext(), VendorProfile.class));
+                    startActivity(new Intent(getApplicationContext(), VendorPendingOrders.class));
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {

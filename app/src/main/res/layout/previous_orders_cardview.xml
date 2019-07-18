@@ -15,28 +15,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fileNamePreviousOrder"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="File Name:"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/VendorNamePreviousOrder"
-            android:layout_below="@+id/fileNamePreviousOrder"
             android:textSize="20sp"
             android:textStyle="bold"
             android:text="Vendor Name:"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fileCostPreviousOrder"
-            android:layout_below="@+id/VendorNamePreviousOrder"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="File Cost:"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,12 +27,12 @@
             android:id="@+id/finishTimePreviousOrder"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_below="@+id/fileCostPreviousOrder"
+            android:layout_below="@+id/VendorNamePreviousOrder"
             android:text="Time:"/>
 
         <Button
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="9dp"
             android:background="@drawable/ic_delete"
