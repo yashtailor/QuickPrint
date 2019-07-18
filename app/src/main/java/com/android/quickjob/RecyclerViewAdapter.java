@@ -1,6 +1,7 @@
 package com.android.quickjob;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -49,6 +50,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //viewHolder.txtPages.setText("Number of Pages:" + fileItems.getNumberOfPages());
         viewHolder.txtCost.setText("Cost of one page:" + fileItems.getFileCost());
         viewHolder.txtName.setText("Name:" + fileItems.getFileName());
+        if(fileItems.isSelected()) {
+            viewHolder.txtColor.setTextColor(Color.parseColor("#FF0000"));
+            viewHolder.txtBW.setTextColor(Color.parseColor("#FFFFFF"));
+        } else {
+            viewHolder.txtBW.setTextColor(Color.parseColor("#FF0000"));
+            viewHolder.txtColor.setTextColor(Color.parseColor("#FFFFFF"));
+        }
     }
 
     @Override
@@ -75,6 +83,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
+                            fileList.get(position).setSelected(false);
                             listener.onColorChange(position,0);
                         }
                     }
@@ -86,6 +95,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
+                            fileList.get(position).setSelected(true);
                             listener.onColorChange(position,1);
                         }
                     }

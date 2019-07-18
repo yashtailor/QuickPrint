@@ -6,9 +6,17 @@ public class FileItems {
 private String fileName;
 private Uri path;
 private int fileCost,numberOfPages;
+private boolean isSelected;
 
+    public boolean isSelected() {
+        return isSelected;
+    }
 
-    public FileItems(String fileName, int fileCost, int numberOfPages,Uri path) {
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public FileItems(String fileName, int fileCost, int numberOfPages, Uri path) {
         this.fileName = fileName;
         this.fileCost = fileCost;
         this.numberOfPages = numberOfPages;
