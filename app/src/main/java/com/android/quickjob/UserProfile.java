@@ -23,7 +23,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -251,9 +250,9 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
         } else {
             target.setVisible(false);
         }
-        View headerView = navigationView.getHeaderView(0);
-        TextView textView = (TextView) headerView.findViewById(R.id.emailDisplayId);
-        textView.setText(mUser.getEmail());
+        //View headerView = navigationView.getHeaderView(0);
+        //TextView textView = (TextView) headerView.findViewById(R.id.emailDisplayId);
+        //textView.setText(mUser.getEmail());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);

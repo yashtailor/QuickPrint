@@ -135,10 +135,26 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
                                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Files from "+vendorEmail);
                                 emailIntent.setType("message/rfc822");
                                 emailIntent.putExtra(Intent.EXTRA_EMAIL,vendorEmail);
+                               // ArrayList<String> printType = new ArrayList<>();
+                                //String[] printType = new String[20];
+                                String printType = "";
+                                int  index=0;
                                 ArrayList<Uri> uris = new ArrayList<>();
                                 for(int i = 0;i<total_attachments;i++) {
                                     uris.add(UserProfile.fileItems.get(i).getPath());
+                                    if(UserProfile.fileItems.get(i).getFileCost() == 1) {
+                                        index = i + 1;
+                                        printType = printType + index + ". Black and White Print  ";
+                                    }
+                                        //printType.add(i, i+1 + "Black and White Print");
+                                    else {
+                                        index = i + 1;
+                                        printType = printType + index + ". Color Print  ";
+                                        //printType.add(i, i+1 + "Color Print");
+                                    }
                                 }
+                                //emailIntent.putExtra(Intent.EXTRA_TEXT, printType);
+                                emailIntent.putExtra(Intent.EXTRA_TEXT, printType);
                                 emailIntent.putExtra(Intent.EXTRA_STREAM, uris);
                                 startActivityForResult(Intent.createChooser(emailIntent, "Send email..."),OPENING_PAYEMENTS);
                             }
