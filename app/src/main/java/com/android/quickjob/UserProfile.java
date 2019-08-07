@@ -186,12 +186,12 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
                     @Override
                     public void onFailure(@NonNull Exception exception) {
                         // Uh-oh, an error occurred!
-                        Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show();
                     }
                 });
                 fileItems.remove(position);
                 adapter.notifyItemRemoved(position);
-
             }
 
             @Override
@@ -281,7 +281,7 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
         } else if (requestCode == REQUEST_CODE_FILES && resultCode == RESULT_OK && data != null && data.getData() != null) {
             uploadFiles(data);
         } else if (requestCode == REQUEST_CODE_SCANNER && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Toast.makeText(getApplicationContext(), "Added baki", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Added baki", Toast.LENGTH_LONG).show();
             Intent file = data.getParcelableExtra(Intent.EXTRA_STREAM);
             uploadFiles(file);
         }
@@ -298,15 +298,15 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                fileItems.add(new FileItems(getFileName(file),1,1,data.getData()));
+                fileItems.add(new FileItems("camera"+fileId,1,1,data.getData()));
                 adapter.notifyDataSetChanged();
 
-                Toast.makeText(UserProfile.this, "Added to cart", Toast.LENGTH_LONG).show();
+                Toast.makeText(UserProfile.this, "Added to cart", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UserProfile.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(UserProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -314,19 +314,19 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
 
     public void putFileInStorage(final Uri file) {
         fileId = databaseReference.push().getKey();
-        StorageReference upload = storageReference.child(fileId);
+        final StorageReference upload = storageReference.child(fileId);
         uploadTask = (UploadTask) upload.putFile(file).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 fileItems.add(new FileItems(getFileName(file),1,1,file));
                 adapter.notifyDataSetChanged();
-                Toast.makeText(UserProfile.this, "Added in cart", Toast.LENGTH_LONG).show();
+                Toast.makeText(UserProfile.this, "Added in cart", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UserProfile.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(UserProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
