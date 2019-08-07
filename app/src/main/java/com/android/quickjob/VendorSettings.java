@@ -15,14 +15,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class VendorSettings extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
     private Button signOutBtn;
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,10 @@ public class VendorSettings extends AppCompatActivity implements NavigationView.
         setSupportActionBar(toolbar);
         NavigationView navigationView = findViewById(R.id.nav_view_1);
         navigationView.setNavigationItemSelectedListener(this);
+        user= FirebaseAuth.getInstance().getCurrentUser();
+        View headerView = navigationView.getHeaderView(0);
+        TextView textView = (TextView) headerView.findViewById(R.id.emailDisplayId);
+        textView.setText(user.getEmail());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);

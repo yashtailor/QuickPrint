@@ -19,9 +19,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -77,8 +79,6 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
         Intent intent = getIntent();
         String action = intent.getAction();
         String type = intent.getType();
-
-        mUser=FirebaseAuth.getInstance().getCurrentUser();
     }
 
     @Override
@@ -96,13 +96,8 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
             startActivity(new Intent(getApplicationContext(), Settings.class));
             finish();
         } else if (menuItem.getItemId() == R.id.nav_about) {
-            if(mUser.getEmail().equals("aaathorve@gmail.com")||mUser.getEmail().equals("yashtailor2000@gmail.com")||mUser.getEmail().equals("02aditya96@gmail.com")) {
                 startActivity(new Intent(getApplicationContext(),DeveloperOptions.class));
                 finish();
-            }else {
-                //Toast.makeText(getApplicationContext(),"Not a developer",Toast.LENGTH_SHORT);
-                onBackPressed();
-            }
         }
         return true;
 
@@ -246,8 +241,19 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
         drawer = findViewById(R.id.draw_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mUser=FirebaseAuth.getInstance().getCurrentUser();
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        Menu menu = navigationView.getMenu();
+        MenuItem target = menu.findItem(R.id.nav_about);
+        if(mUser.getEmail().equals("aaathorve@gmail.com")||mUser.getEmail().equals("yashtailor2000@gmail.com")||mUser.getEmail().equals("02aditya96@gmail.com")) {
+            target.setVisible(true);
+        } else {
+            target.setVisible(false);
+        }
+        View headerView = navigationView.getHeaderView(0);
+        TextView textView = (TextView) headerView.findViewById(R.id.emailDisplayId);
+        textView.setText(mUser.getEmail());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);

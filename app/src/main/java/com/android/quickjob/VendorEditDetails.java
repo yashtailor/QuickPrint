@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,6 +48,10 @@ public class VendorEditDetails extends AppCompatActivity implements NavigationVi
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.bringToFront();
+        user= FirebaseAuth.getInstance().getCurrentUser();
+        View headerView = navigationView.getHeaderView(0);
+        TextView textView = (TextView) headerView.findViewById(R.id.emailDisplayId);
+        textView.setText(user.getEmail());
 
         editDetails();
     }
@@ -83,8 +88,6 @@ public class VendorEditDetails extends AppCompatActivity implements NavigationVi
         newNumber=(EditText)findViewById(R.id.vendorEditNumber);
         newEmail=(EditText)findViewById(R.id.vendorEditEmail);
         editVendorDetailsBtn=(Button)findViewById(R.id.vendorEditDetailsBtn);
-
-        user= FirebaseAuth.getInstance().getCurrentUser();
         databaseReference= FirebaseDatabase.getInstance().getReference("Vendors");
 
         editVendorDetailsBtn.setOnClickListener(new View.OnClickListener() {
