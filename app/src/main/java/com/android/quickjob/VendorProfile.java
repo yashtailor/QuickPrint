@@ -12,6 +12,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -22,7 +27,7 @@ public class VendorProfile extends AppCompatActivity implements NavigationView.O
     private RecyclerView.Adapter vAdapter;
     private RecyclerView.LayoutManager vLayoutManager;
     static ArrayList<OrderData> aod=new ArrayList<>();
-
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,10 @@ public class VendorProfile extends AppCompatActivity implements NavigationView.O
         setSupportActionBar(toolbar);
         NavigationView navigationView = findViewById(R.id.nav_view_1);
         navigationView.setNavigationItemSelectedListener(this);
+        user= FirebaseAuth.getInstance().getCurrentUser();
+        View headerView = navigationView.getHeaderView(0);
+        TextView textView = (TextView) headerView.findViewById(R.id.emailDisplayId);
+        textView.setText(user.getEmail());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);

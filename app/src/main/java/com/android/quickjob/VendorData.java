@@ -2,21 +2,21 @@ package com.android.quickjob;
 
 public class VendorData {
     private String vendorName;
-    private int vendorNumber;
+    private String vendorNumber;
     private String vendorEmail;
 
 
-    public VendorData(String name, int number, String email) {
+    public VendorData(String name, String number, String email) {
         vendorName = name;
         vendorNumber = number;
-        vendorEmail=email;
+        vendorEmail = email;
     }
 
     public String getName() {
         return vendorName;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return vendorNumber;
     }
 

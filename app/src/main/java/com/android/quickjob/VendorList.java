@@ -99,7 +99,7 @@ public class VendorList extends AppCompatActivity implements NavigationView.OnNa
                 data.clear();
                 for(DataSnapshot ds:dataSnapshot.getChildren()) {
                     VendorAddVerify vendorAddVerify=ds.getValue(VendorAddVerify.class);
-                    data.add(new VendorData(vendorAddVerify.getVendorName(),VendorPendingOrders.aod1.size(),vendorAddVerify.getEmail()));
+                    data.add(new VendorData(vendorAddVerify.getVendorName(),vendorAddVerify.getVendorNumber(),vendorAddVerify.getEmail()));
                     mAdapter.notifyItemInserted(data.size());
                 }
             }

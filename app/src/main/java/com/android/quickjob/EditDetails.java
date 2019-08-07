@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -45,13 +46,22 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
         setSupportActionBar(toolbar);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        Menu menu = navigationView.getMenu();
+        MenuItem target = menu.findItem(R.id.nav_about);
+        if(mUser.getEmail().equals("aaathorve@gmail.com")||mUser.getEmail().equals("yashtailor2000@gmail.com")||mUser.getEmail().equals("02aditya96@gmail.com")) {
+            target.setVisible(true);
+        } else {
+            target.setVisible(false);
+        }
+        View headerView = navigationView.getHeaderView(0);
+        TextView textView = (TextView) headerView.findViewById(R.id.emailDisplayId);
+        textView.setText(mUser.getEmail());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.bringToFront();
-
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         editDetails();
         passwordRetrieving();
@@ -72,13 +82,8 @@ public class EditDetails extends AppCompatActivity implements NavigationView.OnN
             startActivity(new Intent(getApplicationContext(), Settings.class));
             finish();
         } else if (menuItem.getItemId() == R.id.nav_about) {
-            if (mUser.getEmail().equals("aaathorve@gmail.com") || mUser.getEmail().equals("yashtailor2000@gmail.com") || mUser.getEmail().equals("02aditya96@gmail.com")) {
-                startActivity(new Intent(getApplicationContext(), DeveloperOptions.class));
-                finish();
-            } else {
-                //Toast.makeText(getApplicationContext(),"Not a developer",Toast.LENGTH_SHORT);
-                onBackPressed();
-            }
+            startActivity(new Intent(getApplicationContext(), DeveloperOptions.class));
+            finish();
         }
         return true;
 
