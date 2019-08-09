@@ -10,6 +10,7 @@
     tools:context=".UserProfile">
 
 
+
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
@@ -24,15 +25,16 @@
         android:layout_height="wrap_content">
 
         <include layout="@layout/toolbar" />
+
     </LinearLayout>
-    
+
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewItems"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recyclerViewItems"
         android:paddingTop="?attr/actionBarSize"
         android:paddingBottom="300dp"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -62,8 +64,8 @@
             android:id="@+id/btnFileManger"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="26dp"
@@ -94,8 +96,8 @@
             android:text="CAM SCANNER"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        
-        
+
+
     </RelativeLayout>
 
 

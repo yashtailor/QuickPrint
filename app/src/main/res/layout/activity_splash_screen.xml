@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center_horizontal"
-        android:text="QUICK JOB"
+        android:text="QUICK PRINT"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="30sp" />
 </RelativeLayout>

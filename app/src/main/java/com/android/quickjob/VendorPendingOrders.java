@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -133,7 +134,7 @@ public class VendorPendingOrders extends AppCompatActivity implements Navigation
     }
 
     @Override
-    public void onCheck(final int pos) {
+    public void onCheck(final int pos, final CheckBox doneOrder) {
 
         position = pos;
         AlertDialog.Builder a_builder = new AlertDialog.Builder(this);
@@ -156,6 +157,7 @@ public class VendorPendingOrders extends AppCompatActivity implements Navigation
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        doneOrder.setChecked(false);
                         dialog.dismiss();
                     }
                 });

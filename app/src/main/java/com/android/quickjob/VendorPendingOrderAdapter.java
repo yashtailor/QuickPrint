@@ -16,7 +16,7 @@ public class VendorPendingOrderAdapter extends RecyclerView.Adapter<VendorPendin
     private OnCheckBoxPressed listener;
 
     public interface OnCheckBoxPressed{
-         void onCheck(int pos);
+         void onCheck(int pos,CheckBox cb);
     }
 
     public void setOnCheckBoxPressed(OnCheckBoxPressed listener){
@@ -37,7 +37,7 @@ public class VendorPendingOrderAdapter extends RecyclerView.Adapter<VendorPendin
                 @Override
                 public void onClick(View v) {
                     if( listener != null){
-                        listener.onCheck(getAdapterPosition());
+                        listener.onCheck(getAdapterPosition(),doneOrder);
                     }
                 }
             });
